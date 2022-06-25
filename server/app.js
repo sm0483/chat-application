@@ -8,7 +8,7 @@ const path=require('path');
 require('dotenv').config();
 app.use(express.json());
 const connectDb=require('./db/connect');
-
+const errorHandler=require('./middleware/err');
 //routes for auth
 const userRoute=require('./routes/user-routes');
 
@@ -45,6 +45,7 @@ const start=async()=>{
 }
 start();
 
+app.use(errorHandler);
 
 
 
