@@ -10,8 +10,8 @@ const {
 
 }=require('../controller/user');
 
-router.route('auth/register').post(registerUser) //create user
-router.route('auth/login').post(loginUser) // login user
+router.route('/auth/register').post(registerUser) //create user
+router.route('/auth/login').post(loginUser) // login user
 router.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);
 
 

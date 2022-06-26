@@ -27,10 +27,7 @@ io.on('connection',(socket)=>{
 
 app.use('/chatapp',userRoute);
 
-
 const port=process.env.PORT || 3000;
-
-
 
 server.listen(port,()=>{
     console.log('sever running----');
