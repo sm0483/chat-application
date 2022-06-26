@@ -1,6 +1,7 @@
 const CustomError=require('../error/custom');
 
 const errorHandler=(err,req,res,next)=>{
+    console.log(err);
     if(err instanceof errorHandler){
         const {message,status}=err;
         res.status(500).json({

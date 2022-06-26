@@ -10,7 +10,10 @@ app.use(express.json());
 const connectDb=require('./db/connect');
 const errorHandler=require('./middleware/err');
 //routes for auth
-const userRoute=require('./routes/user-routes');
+
+const userRoute=require('./routes/auth-user');
+//app.use(require('body-parser').json());
+
 
 app.set('view engine','ejs');
 app.set('views','/home/user/Desktop/project/real-time-chat-app/views/html');
@@ -20,13 +23,12 @@ io.on('connection',(socket)=>{
 
 })
 
-app.get('/',(req,res)=>{
-    res.render('index');
-})
 
-app.use('/api/v1/auth',userRoute);
 
-const port=process.env.port || 3000;
+app.use('/chatapp',userRoute);
+
+
+const port=process.env.PORT || 3000;
 
 
 
@@ -47,6 +49,4 @@ start();
 
 app.use(errorHandler);
 
-
-
-
+module.exports=app;
