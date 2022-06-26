@@ -1,0 +1,26 @@
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div id="login-form-wrap">
+      <h2>Register</h2>
+      <form id="login-form" action="/chatapp/auth/register" method="POST">
+        <p>
+        <input type="text" id="username" name="username" placeholder="Username" required><i class="validation-username"><span></span><span></span></i>
+        </p>
+        <p>
+            <input type="email" id="email" name="email" placeholder="Email" required><i class="validation-email"><span></span></i>
+        </p>
+        <p>
+        <input type="password" id="password" name="password" placeholder="Password" required><i class="validation-password"><span></span><span></span></i>
+        </p>
+        <p>
+        <input type="submit" id="login" value="Login">
+        </p>
+      </form>
+      <div id="create-account-wrap">
+        <p>Signup? <a href="/chatapp/auth/login">Login</a><p>
+      </div><!--create-account-wrap-->
+    </div><!--login-form-wrap-->
+    <!-- partial -->
+      
+    </body>
