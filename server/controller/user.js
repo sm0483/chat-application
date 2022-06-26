@@ -1,41 +1,34 @@
 const asyncWrapper=require('../error/asyncWrapper');
 
+//-->server login page 
+//-->server regiter page
+
+// after login 
 
 
-const loginUser=asyncWrapper(async(req,res)=>{ //login user
-    res.status(200).json({
-        "message":"user loged"
-    })
+const serveLogin=asyncWrapper(async(req,res)=>{
+    res.render('login.ejs');
+})
+
+const serveRegister=asyncWrapper(async(req,res)=>{
+    res.render('register.ejs');
+})
+
+const createUser=asyncWrapper(async(req,res)=>{
+    //create user using using mongDb
+    //redirect to login page
+    res.status(301).redirect('/chatapp/auth/login');
 
 })
 
-const registerUser=asyncWrapper(async(req,res)=>{ // register user
-    res.status(200).json({
-        "message":"user loged"
-    })
-
+const loginUser=asyncWrapper(async(req,res)=>{
+    //open chat application
 })
-
-const deleteUser=asyncWrapper(async(req,res)=>{  //route to login  user
-    res.send('del user');
-
-})
-
-
-const updateUser=asyncWrapper(async(req,res)=>{  // route to login user
-    res.send('update user');
-})
-
-const getUser=asyncWrapper(async(req,res)=>{  // get all details of user 
-    res.send('get use data');
-})
-
 
 
 module.exports={
-    loginUser,
-    registerUser,
-    deleteUser,
-    updateUser,
-    getUser
+    serveLogin,
+    serveRegister,
+    createUser,
+    loginUser
 }
