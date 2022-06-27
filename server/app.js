@@ -6,6 +6,12 @@ const {Server}=require('socket.io');
 const io=new Server(server);
 const path=require('path');
 require('dotenv').config();
+
+// to read body
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("/home/user/Desktop/project/real-time-chat-app/views"));
+
 app.use(express.json());
 const connectDb=require('./db/connect');
 const errorHandler=require('./middleware/err');
@@ -13,6 +19,9 @@ const errorHandler=require('./middleware/err');
 
 const userRoute=require('./routes/auth-user');
 //app.use(require('body-parser').json());
+
+
+
 
 
 app.set('view engine','ejs');

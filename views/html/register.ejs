@@ -1,26 +1,48 @@
+<!-- icons  -->
+<head>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="/css/index.css"> -->
+</head>
 
 <body>
-    <!-- partial:index.partial.html -->
-    <div id="login-form-wrap">
-      <h2>Register</h2>
-      <form id="login-form" action="/chatapp/auth/register" method="POST">
-        <p>
-        <input type="text" id="username" name="username" placeholder="Username" required><i class="validation-username"><span></span><span></span></i>
-        </p>
-        <p>
-            <input type="email" id="email" name="email" placeholder="Email" required><i class="validation-email"><span></span></i>
-        </p>
-        <p>
-        <input type="password" id="password" name="password" placeholder="Password" required><i class="validation-password"><span></span><span></span></i>
-        </p>
-        <p>
-        <input type="submit" id="login" value="Login">
-        </p>
-      </form>
-      <div id="create-account-wrap">
-        <p>Signup? <a href="/chatapp/auth/login">Login</a><p>
-      </div><!--create-account-wrap-->
-    </div><!--login-form-wrap-->
-    <!-- partial -->
-      
-    </body>
+  <div class=" flex-r container">
+    <div class="flex-r login-wrapper">
+      <div class="login-text"></div>
+        <h1>Sign Up</h1>
+        <p>It's not long before you embark on this journey! </p>
+
+        <form class="flex-c" action="/chatapp/auth/register" method="POST">
+          <div class="input-box">
+            <span class="label">E-mail</span>
+            <div class=" flex-r input">
+              <input type="email" name="email" placeholder="name@abc.com">
+              <i class="fas fa-at"></i>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <span class="label">Password</span>
+            <div class="flex-r input">
+              <input type="password" name="password" placeholder="8+ (a, A, 1, #)">
+              <i class="fas fa-lock"></i>
+            </div>
+          </div>
+
+          <div class="check">
+            <input type="checkbox" name="" id="">
+            <span>I've read and agree with T&C</span>
+          </div>
+
+          <input class="btn" type="submit" value="Create an Account">
+          <span class="extra-line">
+            <span>Already have an account?</span>
+            <a href="/chatapp/auth/login">Sign In</a>
+          </span>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+
