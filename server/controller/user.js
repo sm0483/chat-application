@@ -1,41 +1,32 @@
 const asyncWrapper=require('../error/asyncWrapper');
+const {
+    createUserDb,
+    createToken
+}=require('../db/dboperation');
 
-//-->server login page 
-//-->server regiter page
-
-// after login 
-
+//serve login route
+//serever Register form
 
 const serveLogin=asyncWrapper(async(req,res)=>{
-    res.render('login.ejs');
+    res.render('login');
 })
 
 const serveRegister=asyncWrapper(async(req,res)=>{
-    res.render('register.ejs');
+    res.render('register');
+
 })
 
 const createUser=asyncWrapper(async(req,res)=>{
-    //store token in session storage
-    const {email,password}=req.body;
-    
-
+    const user=await createUserDb(req.body);
+    console.log(user);
 })
 
 const loginUser=asyncWrapper(async(req,res)=>{
-        //TODO
-    //just show chat app
-    //-->should server jwt token
-    //-->should show application
-        //>applcation page should have a chat route
-           //>>should have capacity to create room 
-           //>>add peopel to system
-           //>>remove user from system
+    res.send('login serverlogin');
 
-        //>should have get details route 
-        //>should have option to edit application
-           //>>if edit happens then should redirect to password validation
-           
 })
+
+
 
 
 module.exports={

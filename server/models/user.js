@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const jwt=require('jsonwebtoken'); 
+const passportLocalMongoose=require('passport-local-mongoose');
 
 const userSchema=new mongoose.Schema({
     name:{
@@ -14,28 +14,10 @@ const userSchema=new mongoose.Schema({
         'Please provide a valid email'
         ],
         unique:true
-    },
-    password:{
-        type:String,
-        required:[true,"password field can't be empty"],
-        minLength:8
     }
 });
 
-userSchema.pre('save',async function(){
-    const salt=await bcrypt.genSalt(10);
-    this.password=await bcrypt.hash(this.password,salt);
-
-})
-
-userSchema.methods.createJwt=function(){
-    return jwt.sign({
-        userId:this._id,
-        name:this.name
-    },process.env.key,{expiresIn:'30d'})
-}
-
-
-
+userSchema.plugin(passportLocalMongoose,{usernameField:'name'});
+// here default is{usernameField:'username'}
 const User=mongoose.model("User",userSchema);
 module.exports=User;
