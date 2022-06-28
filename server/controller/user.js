@@ -15,10 +15,9 @@ const serveRegister=asyncWrapper(async(req,res)=>{
 })
 
 const createUser=asyncWrapper(async(req,res)=>{
-    //TODO
-    //create user using using mongDb
-    //redirect to login page
-    res.status(301).redirect('/chatapp/auth/login');
+    //store token in session storage
+    const {email,password}=req.body;
+    
 
 })
 

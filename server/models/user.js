@@ -1,4 +1,5 @@
 const mongoose=require('mongoose');
+const jwt=require('jsonwebtoken'); 
 
 const userSchema=new mongoose.Schema({
     name:{
@@ -21,5 +22,20 @@ const userSchema=new mongoose.Schema({
     }
 });
 
+userSchema.pre('save',async function(){
+    const salt=await bcrypt.genSalt(10);
+    this.password=await bcrypt.hash(this.password,salt);
+
+})
+
+userSchema.methods.createJwt=function(){
+    return jwt.sign({
+        userId:this._id,
+        name:this.name
+    },process.env.key,{expiresIn:'30d'})
+}
+
+
+
 const User=mongoose.model("User",userSchema);
-module.exports=User
+module.exports=User;
