@@ -18,7 +18,8 @@ const serveRegister=asyncWrapper(async(req,res)=>{
 
 const createUser=asyncWrapper(async(req,res)=>{
     const user=await createUserDb(req.body);
-    console.log(user);
+    //redirect to chat app
+    res.redirect('/');
 })
 
 const loginUser=asyncWrapper(async(req,res)=>{
