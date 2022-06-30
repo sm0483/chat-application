@@ -1,20 +1,17 @@
 const userModel=require('../models/user');
+const CustomError=require('../error/custom');
+const asyncWrapper = require('../error/asyncWrapper');
+
+
 
 const createUserDb=async(data)=>{
     const {email,name,password}=data;
-    userModels=new userModel({
+     userModels=new userModel({
         email:email,
         name:name
     });
-    console.log(email,name,password);
-    userModel.register(userModels,password,function(err,user){
-        if(err){
-            console.log(err);
-        }else{
-            //console.log(user);
-        }
-
-    })
+    const responce=await userModel.register(userModels,password);
+    return responce;
 }
 
 const getUser=async()=>{

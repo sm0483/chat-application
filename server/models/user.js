@@ -2,11 +2,6 @@ const mongoose=require('mongoose');
 const passportLocalMongoose=require('passport-local-mongoose');
 
 const userSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:[true,"user name cat't be empty"],
-        maxLength:50
-    },
     email:{
         type:String,
         required:[true,'email cant"t be empty'],
@@ -17,7 +12,7 @@ const userSchema=new mongoose.Schema({
     }
 });
 
-userSchema.plugin(passportLocalMongoose,{usernameField:'name'});
+userSchema.plugin(passportLocalMongoose,{usernameField:'email'});
 // here default is{usernameField:'username'}
 const User=mongoose.model("User",userSchema);
 module.exports=User;

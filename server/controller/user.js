@@ -3,6 +3,7 @@ const {
     createUserDb,
     createToken
 }=require('../db/dboperation');
+const CustomError = require('../error/custom');
 
 //serve login route
 //serever Register form
@@ -19,20 +20,34 @@ const serveRegister=asyncWrapper(async(req,res)=>{
 const createUser=asyncWrapper(async(req,res)=>{
     const user=await createUserDb(req.body);
     //redirect to chat app
-    res.redirect('/');
+    res.redirect('/chatapp/main');
 })
 
 const loginUser=asyncWrapper(async(req,res)=>{
-    res.send('login serverlogin');
+    res.send('route not ready--');
+    console.log(req.body);
 
 })
 
+const logout=asyncWrapper(async(req,res)=>{
+    req.logout(function(err){
+        if(err)throw new CustomError("internal error",500);
+    });
+    res.redirect('/chatapp/auth/login');
+})
 
+//move frm here
+const testRendder=asyncWrapper(async(req,res)=>{
+    
+    res.render('dummy');
+})
 
 
 module.exports={
     serveLogin,
     serveRegister,
     createUser,
-    loginUser
+    loginUser,
+    logout,
+    testRendder
 }

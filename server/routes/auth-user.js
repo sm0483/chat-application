@@ -6,7 +6,9 @@ const {
     serveLogin,
     serveRegister,
     loginUser,
-    createUser
+    createUser,
+    logout,
+    testRendder
 
 }=require('../controller/user');
 
@@ -14,6 +16,8 @@ const {
 
 router.route('/auth/login').get(serveLogin).post(loginUser);
 router.route('/auth/register').get(serveRegister).post(passwordValidate,createUser);
+router.route('/auth/logout').get(logout);
+router.route('/main').get(testRendder);
 
 
 
