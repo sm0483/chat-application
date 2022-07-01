@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 const passportLocalMongoose=require('passport-local-mongoose');
 
 const userSchema=new mongoose.Schema({
-    email:{
+    username:{
         type:String,
         required:[true,'email cant"t be empty'],
         match: [ /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -12,7 +12,7 @@ const userSchema=new mongoose.Schema({
     }
 });
 
-userSchema.plugin(passportLocalMongoose,{usernameField:'email'});
+userSchema.plugin(passportLocalMongoose);
 // here default is{usernameField:'username'}
 const User=mongoose.model("User",userSchema);
 module.exports=User;

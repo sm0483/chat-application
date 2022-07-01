@@ -5,10 +5,9 @@ const asyncWrapper = require('../error/asyncWrapper');
 
 
 const createUserDb=async(data)=>{
-    const {email,name,password}=data;
+    const {email,username,password}=data;
      userModels=new userModel({
-        email:email,
-        name:name
+        username:username
     });
     const responce=await userModel.register(userModels,password);
     return responce;

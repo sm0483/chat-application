@@ -4,6 +4,7 @@ const {
     createToken
 }=require('../db/dboperation');
 const CustomError = require('../error/custom');
+const passport=require('passport');
 
 //serve login route
 //serever Register form
@@ -23,11 +24,7 @@ const createUser=asyncWrapper(async(req,res)=>{
     res.redirect('/chatapp/main');
 })
 
-const loginUser=asyncWrapper(async(req,res)=>{
-    res.send('route not ready--');
-    console.log(req.body);
 
-})
 
 const logout=asyncWrapper(async(req,res)=>{
     req.logout(function(err){
@@ -38,16 +35,20 @@ const logout=asyncWrapper(async(req,res)=>{
 
 //move frm here
 const testRendder=asyncWrapper(async(req,res)=>{
-    
-    res.render('dummy');
+    if(req.isAuthenticated()){
+        return res.render('dummy');
+    }
+    return res.redirect('/chatapp/auth/login');
+
 })
+
 
 
 module.exports={
     serveLogin,
     serveRegister,
     createUser,
-    loginUser,
+    //loginUser,
     logout,
     testRendder
 }
