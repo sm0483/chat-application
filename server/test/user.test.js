@@ -21,6 +21,7 @@ const editUser={
 }
 
 let userId=undefined;
+let fakeUserId="8080808080";
 
 
 beforeAll(async()=>{
@@ -52,11 +53,20 @@ describe("Test crud operation on db",()=>{
 
     test("Test find operation in db/failure",async()=>{
         expect(async()=>{
-            await getUserDb("080800").toThrow(CastError);
+            await getUserDb(fakeUserId).toThrow(CastError);
         });
     })
     
-    test("Update user /sucess",async()=>{
+    test("Update user in db/sucess",async()=>{
         const responce=await updateUserDb(userId,editUser);
+        expect(responce.username).toBe(editUser.username);
+        expect(responce._id).toStrictEqual(userId);
+    })
+
+    test("update user in db/failure",async()=>{
+        expect(async()=>{
+            await updateUserDb(fakeUserId,editUser).toThrow(CastError);
+
+        });
     })
 })
