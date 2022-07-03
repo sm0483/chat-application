@@ -1,3 +1,4 @@
+const { response } = require('express');
 const connectDb=require('../db/connect');
 require('dotenv').config();
 const {
@@ -10,21 +11,29 @@ const {
 
 
 const testUser={
-    username:"test8@gmail.com",
+    username:"test@gmail.com",
     password:"Test@2001"
 }
+
+const editUser={
+    username:"edit@gmail.com",
+    password:"Edit@2002"
+}
+
+let userId=undefined;
 
 
 beforeAll(async()=>{
     const connection=await connectDb(process.env.URL);
     const deletedData=await clearDb();
-    console.log(deletedData);
 })
 
 
 describe("Test crud operation on db",()=>{
     test("Test createUser/Sucess",async()=>{
         const responce=await createUserDb(testUser);
+        //assign useId
+        userId=responce._id;
         expect(responce.username).toBe(testUser.username);
         expect(responce.salt).toBeDefined();
         expect(responce.hash).toBeDefined();
@@ -35,8 +44,19 @@ describe("Test crud operation on db",()=>{
             await createUserDb(testUser).toThrow(UserExistsError)
         });
     })
+
+    test("Test find operation in db/success",async()=>{
+        const responce=await getUserDb(userId);
+        expect(responce.username).toBe(testUser.username);
+    })
+
+    test("Test find operation in db/failure",async()=>{
+        expect(async()=>{
+            await getUserDb("080800").toThrow(CastError);
+        });
+    })
     
     test("Update user /sucess",async()=>{
-        const responce=updateUserDb();
+        const responce=await updateUserDb(userId,editUser);
     })
 })

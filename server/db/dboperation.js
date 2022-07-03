@@ -16,9 +16,9 @@ const deleteUserDb=async(userId)=>{
     return responce;
 }
 
-const updateUserDb=async(data)=>{
-    const {userId,newUserName}=data;
-    const responce=await userModel.findOneAndUpdate({_id:userId},{username:newUserName},{runValidators:true,new:true});
+const updateUserDb=async(userId,newUser)=>{
+    const {username}=newUser;
+    const responce=await userModel.findOneAndUpdate({_id:userId},{username:username},{runValidators:true,new:true});
     return responce;   
 }
 
