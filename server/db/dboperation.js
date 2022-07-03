@@ -1,11 +1,9 @@
 const userModel=require('../models/user');
 const CustomError=require('../error/custom');
-const asyncWrapper = require('../error/asyncWrapper');
 
 
-
-const createUserDb=async(data)=>{
-    const {email,username,password}=data;
+const createUserDb=async(data)=>{ 
+    const {username,password}=data;
      userModels=new userModel({
         username:username
     });
@@ -13,25 +11,32 @@ const createUserDb=async(data)=>{
     return responce;
 }
 
-const getUser=async()=>{
-
+const deleteUserDb=async(userId)=>{
+    const responce=await userModel.findOneAndDelete({_id:userId});
+    return responce;
 }
 
-const deleteUser=async()=>{
-
+const updateUserDb=async(data)=>{
+    const {userId,newUserName}=data;
+    const responce=await userModel.findOneAndUpdate({_id:userId},{username:newUserName},{runValidators:true,new:true});
+    return responce;   
 }
 
-const updateUser=async()=>{
-
-
+const getUserDb=async(userId)=>{
+    const responce=await userModel.findOne({_id:userId});
+    return responce;
 }
 
+const clearDb=async()=>{
+    const responce=await userModel.findOneAndDelete({});
+    return responce;
+}
 
 
 module.exports={
-    getUser,
-    deleteUser,
-    updateUser,
-    createUserDb
-    
+    createUserDb,
+    deleteUserDb,
+    updateUserDb,
+    getUserDb,
+    clearDb
 }

@@ -5,7 +5,6 @@ const passwordValidate=require('../middleware/passwd');
 const {
     serveLogin,
     serveRegister,
-    //loginUser,
     createUser,
     logout,
     testRendder
