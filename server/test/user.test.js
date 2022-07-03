@@ -57,16 +57,29 @@ describe("Test crud operation on db",()=>{
         });
     })
     
-    test("Update user in db/sucess",async()=>{
+    test("Test update user in db/sucess",async()=>{
         const responce=await updateUserDb(userId,editUser);
         expect(responce.username).toBe(editUser.username);
         expect(responce._id).toStrictEqual(userId);
     })
 
-    test("update user in db/failure",async()=>{
+    test("Test update user in db/failure",async()=>{
         expect(async()=>{
             await updateUserDb(fakeUserId,editUser).toThrow(CastError);
 
-        });
+        })
     })
+
+    test("Test delete user in db?/Sucess",async()=>{
+        const responce=await deleteUserDb(userId);
+        expect(editUser.username).toBe(responce.username);
+        expect(userId).toStrictEqual(responce._id);
+    })
+
+    test("Test delete user in db/failure",async()=>{
+        expect(async()=>{
+            await deleteUserDb(fakeUserId).toThrow(CastError);
+        })
+    })
+
 })
