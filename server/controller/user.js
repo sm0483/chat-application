@@ -1,5 +1,5 @@
 const asyncWrapper=require('../error/asyncWrapper');
-const createUserDb=require('../db/dboperation');
+const {createUserDb}=require('../db/dboperation');
 const CustomError = require('../error/custom');
 const passport=require('passport');
 
