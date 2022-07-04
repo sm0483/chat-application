@@ -2,47 +2,40 @@
 <head>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 <!-- <link rel="stylesheet" href="/css/index.css"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/register.css">
+
 </head>
 
 <body>
-  <div class=" flex-r container">
-    <div class="flex-r login-wrapper">
+  <div class="main-box">
+    <div class="form-main">
       <div class="login-text"></div>
         <h1>Sign Up</h1>
-        <p>It's not long before you embark on this journey! </p>
-
         <form class="flex-c" action="/chatapp/auth/register" method="POST">
-          <div class="input-box">
-            <span class="label">E-mail</span>
-            <div class=" flex-r input">
-              <input type="email" name="username" placeholder="name@abc.com">
-              <i class="fas fa-at"></i>
-            </div>
-          </div>
-
-          <div class="input-box">
-            <span class="label">Password</span>
-            <div class="flex-r input">
-              <input type="password" name="password" placeholder="8+ (a, A, 1, #)">
-              <i class="fas fa-lock"></i>
-            </div>
-          </div>
-
-          <div class="check">
-            <input type="checkbox" name="" id="">
-            <span>I've read and agree with T&C</span>
-          </div>
-
-          <input class="btn" type="submit" value="Create an Account">
-          <span class="extra-line">
+         <p> 
+            <label class="col-sm-2 col-form-label">Email</label>
+            <input type="email" name="username" placeholder="name@abc.com" class="form-control">
+          </p>
+          <p>
+            <label class="col-sm-2 col-form-label">Password</label>
+            <input type="password" name="password" placeholder="8+ (a, A, 1, #)" class="form-control">
+          </p>
+          <p>
+              <input type="submit" id="login" value="create an account" class="btn btn-primary">
+          </p>
+            
             <span>Already have an account?</span>
             <a href="/chatapp/auth/login">Sign In</a>
-          </span>
+          
         </form>
 
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 
 
