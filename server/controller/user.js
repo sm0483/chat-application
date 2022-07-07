@@ -3,11 +3,12 @@ const {createUserDb}=require('../db/dboperation');
 const CustomError = require('../error/custom');
 const passport=require('passport');
 
+
 //serve login route
 //serever Register form
 
 const serveLogin=asyncWrapper(async(req,res)=>{
-    res.render('login');
+    res.render('login',{ msg:res.locals.success});
 })
 
 
@@ -18,8 +19,8 @@ const serveRegister=asyncWrapper(async(req,res)=>{
 
 const createUser=asyncWrapper(async(req,res)=>{
     const user=await createUserDb(req.body);
-    //redirect to chat app
-    res.redirect('/chatapp/main');
+    req.flash('success','user created successfully');
+    res.redirect('/chatapp/auth/login');
 })
 
 
@@ -33,6 +34,8 @@ const logout=asyncWrapper(async(req,res)=>{
 
 //move frm here
 const testRendder=asyncWrapper(async(req,res)=>{
+    req.flash('message');
+
     if(req.isAuthenticated()){
         return res.render('dummy');
     }

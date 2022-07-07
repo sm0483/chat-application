@@ -6,6 +6,14 @@ const {Server}=require('socket.io');
 const io=new Server(server);
 const path=require('path');
 require('dotenv').config();
+const flashMiddleware=require('./middleware/flash');
+
+//flash message
+
+const flash=require('connect-flash');
+//use of cookiparser
+const cookieParser = require('cookie-parser');
+
 
 
 //passport passport-local
@@ -29,6 +37,9 @@ const errorHandler=require('./middleware/err');
 const userRoute=require('./routes/auth-user');
 //app.use(require('body-parser').json());
 
+app.use(cookieParser("hellowordl"));
+
+
 //used for passport
 app.use(
     require("express-session")({
@@ -38,10 +49,16 @@ app.use(
     })
   );
 
+app.use(flash());
 //pasport-local
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(flashMiddleware);
+
+
+
 
 //passport -login presistence
 passport.use(new LocalStrategy(User.authenticate()));
