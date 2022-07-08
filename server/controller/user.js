@@ -16,11 +16,13 @@ const serveRegister=asyncWrapper(async(req,res)=>{
     const passwordMessage=res.locals.password;
     const userExistMessage=res.locals.userExist;
     if(passwordMessage && passwordMessage.length){
-        res.render('register',{msg:passwordMessage});
+        return res.render('register',{msg:passwordMessage});
     }
     else if(userExistMessage && userExistMessage.length){
-        res.render('register',{msg:userExistMessage});
+        return res.render('register',{msg:userExistMessage});
     }
+    res.render('register',{msg:passwordMessage});
+
 
 })
 
