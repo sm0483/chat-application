@@ -28,7 +28,7 @@ const getUserDb=async(userId)=>{
 }
 
 const clearDb=async()=>{
-    const responce=await userModel.findOneAndDelete({});
+    const responce=await userModel.deleteMany({});
     return responce;
 }
 

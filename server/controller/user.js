@@ -8,12 +8,12 @@ const passport=require('passport');
 //serever Register form
 
 const serveLogin=asyncWrapper(async(req,res)=>{
-    res.render('login',{ msg:res.locals.success});
+    res.render('login',{msg:res.locals.success});
 })
 
 
 const serveRegister=asyncWrapper(async(req,res)=>{
-    res.render('register');
+    res.render('register',{msg:res.locals.password});
 
 })
 
@@ -34,8 +34,6 @@ const logout=asyncWrapper(async(req,res)=>{
 
 //move frm here
 const testRendder=asyncWrapper(async(req,res)=>{
-    req.flash('message');
-
     if(req.isAuthenticated()){
         return res.render('dummy');
     }

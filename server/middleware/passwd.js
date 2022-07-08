@@ -14,6 +14,7 @@ const passwordValidate=(req,res,next)=>{
         req.level="medium";
         return next();
     }
+    req.flash('password','password not supported');
     throw new CustomError('password doesn"t support',400);
 }
 
