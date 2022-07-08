@@ -13,7 +13,14 @@ const serveLogin=asyncWrapper(async(req,res)=>{
 
 
 const serveRegister=asyncWrapper(async(req,res)=>{
-    res.render('register',{msg:res.locals.password});
+    const passwordMessage=res.locals.password;
+    const userExistMessage=res.locals.userExist;
+    if(passwordMessage && passwordMessage.length){
+        res.render('register',{msg:passwordMessage});
+    }
+    else if(userExistMessage && userExistMessage.length){
+        res.render('register',{msg:userExistMessage});
+    }
 
 })
 

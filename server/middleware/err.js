@@ -13,7 +13,11 @@ const errorHandler=(err,req,res,next)=>{
                 "message":message,
                 "status":status
             })
+        }
     }
+    else if(err.message.includes('A user with the given username is already registered')){
+        req.flash('userExist','A user with the given username is already registered');
+        res.redirect('/chatapp/auth/register');
     }
     else{
         res.status(500).json({
