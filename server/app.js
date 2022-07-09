@@ -8,6 +8,7 @@ const path=require('path');
 require('dotenv').config();
 const flashMiddleware=require('./middleware/flash');
 
+const pageNotFound=require('./middleware/not-found');
 //flash message
 
 const flash=require('connect-flash');
@@ -70,7 +71,6 @@ passport.deserializeUser(User.deserializeUser());
 
 app.set('view engine','ejs');
 app.set('views','/home/user/Desktop/project/real-time-chat-app/views/html');
-
 io.on('connection',(socket)=>{
     console.log('a user connected');
 
@@ -83,6 +83,7 @@ app.use('/chatapp',userRoute);
 const port=process.env.PORT || 3000;
 
 server.listen(port,()=>{
+
     console.log('sever running----');
 })
 
@@ -98,5 +99,5 @@ const start=async()=>{
 start();
 
 app.use(errorHandler);
-
+app.use(pageNotFound);
 module.exports=app;
