@@ -8,3 +8,14 @@
 </div>
 
 <%}%>
+
+
+<% if(error && error.length){%>
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>
+            Failed!
+        </strong> <%=error%>.
+    </div>
+    
+    <%}%>

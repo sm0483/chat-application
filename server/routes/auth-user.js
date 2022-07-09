@@ -15,7 +15,8 @@ const passport = require('passport');
 
 
 
-router.route('/auth/login').get(serveLogin).post(passport.authenticate('local',{failureRedirect:'/chatapp/auth/login'}),
+router.route('/auth/login').get(serveLogin).post(passport.authenticate('local',
+{failureRedirect:'/chatapp/auth/login',failureFlash:{type:'error',message:'Invalid username or password'}}),
 (req,res)=>{
     res.redirect('/chatapp/main');
 });

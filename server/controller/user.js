@@ -1,14 +1,22 @@
 const asyncWrapper=require('../error/asyncWrapper');
 const {createUserDb}=require('../db/dboperation');
 const CustomError = require('../error/custom');
-const passport=require('passport');
 
 
 //serve login route
 //serever Register form
 
 const serveLogin=asyncWrapper(async(req,res)=>{
-    res.render('login',{msg:res.locals.success});
+    const errorMessage=res.locals.error;
+    const loginMessage=res.locals.success;
+    if(errorMessage && errorMessage.length){
+        return res.render('login',{msg:undefined,error:errorMessage});
+    }
+    else if(loginMessage && loginMessage.length){
+        return res.render('login',{msg:loginMessage,error:undefined});
+    }
+    return res.render('login',{msg:undefined});
+    
 })
 
 
