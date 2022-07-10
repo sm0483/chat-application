@@ -6,7 +6,7 @@ const CustomError = require('../error/custom');
 //serve login route
 //serever Register form
 
-const serveLogin=asyncWrapper(async(req,res)=>{
+const serveLogin=async(req,res)=>{
     const errorMessage=res.locals.error;
     const loginMessage=res.locals.success;
     if(errorMessage && errorMessage.length){
@@ -17,7 +17,7 @@ const serveLogin=asyncWrapper(async(req,res)=>{
     }
     return res.render('login',{msg:undefined});
     
-})
+}
 
 
 const serveRegister=asyncWrapper(async(req,res)=>{

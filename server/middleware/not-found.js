@@ -1,5 +1,5 @@
 const pageNotFound=(req,res,next)=>{
-    res.render('not-found');
+    res.status(404).render('not-found');
 }
 
 module.exports=pageNotFound;
