@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const passwordValidate=require('../middleware/passwd');
+const userValidate=require('../middleware/userValidate');
 
 const {
     testRoute,
@@ -9,12 +9,8 @@ const {
 }=require('../controller/user');
 
 
-
-
-
-
 router.route('/login').post(login);
-router.route('/register').post(registerUser);
+router.route('/register').post(userValidate,registerUser);
 router.route('/test').get(testRoute);
 
 

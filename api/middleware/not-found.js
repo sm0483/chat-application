@@ -5,7 +5,7 @@ const {
 
 const pageNotFound=(req,res,next)=>{
     res.status(StatusCodes.BAD_REQUEST).json({
-        "message":getReasonPhrase(StatusCodes.BAD_REQUEST),
+        "error":getReasonPhrase(StatusCodes.BAD_REQUEST),
         "statusCode":StatusCodes.BAD_REQUEST
     })
 }

@@ -3,12 +3,8 @@ const CustomError=require('../error/custom');
 
 
 const createUserDb=async(data)=>{ 
-    const {username,password}=data;
-     userModels=new userModel({
-        username:username
-    });
-    const responce=await userModel.register(userModels,password);
-    return responce;
+    const newUser=await userModel.create(data);
+    return newUser;
 }
 
 const deleteUserDb=async(userId)=>{

@@ -3,68 +3,40 @@ const {createUserDb}=require('../db/dboperation');
 const CustomError = require('../error/custom');
 
 
-//serve login route
-//serever Register form
-
-const serveLogin=async(req,res)=>{
-    const errorMessage=res.locals.error;
-    const loginMessage=res.locals.success;
-    if(errorMessage && errorMessage.length){
-        return res.render('login',{msg:undefined,error:errorMessage});
-    }
-    else if(loginMessage && loginMessage.length){
-        return res.render('login',{msg:loginMessage,error:undefined});
-    }
-    return res.render('login',{msg:undefined});
-    
-}
+const {
+    StatusCodes,
+    getReasonPhrase
+}=require('http-status-codes');
 
 
-const serveRegister=asyncWrapper(async(req,res)=>{
-    const passwordMessage=res.locals.password;
-    const userExistMessage=res.locals.userExist;
-    if(passwordMessage && passwordMessage.length){
-        return res.render('register',{msg:passwordMessage});
-    }
-    else if(userExistMessage && userExistMessage.length){
-        return res.render('register',{msg:userExistMessage});
-    }
-    res.render('register',{msg:passwordMessage});
 
+// New Structure
+//login routes
 
-})
+//---->
+// createUser
+// Login user
 
-const createUser=asyncWrapper(async(req,res)=>{
-    const user=await createUserDb(req.body);
-    req.flash('success','user created successfully');
-    res.redirect('/chatapp/auth/login');
+;
+
+const testRoute=asyncWrapper(async(req,res)=>{
+    res.send('hello world');
 })
 
 
-const logout=asyncWrapper(async(req,res)=>{
-    req.logout(function(err){
-        if(err)throw new CustomError("internal error",500);
-    });
-    res.redirect('/chatapp/auth/login');
+const login=asyncWrapper(async(req,res)=>{
+    res.send('hello world');
 })
 
 
-//move frm here
-const testRendder=asyncWrapper(async(req,res)=>{
-    if(req.isAuthenticated()){
-        return res.render('dummy');
-    }
-    return res.redirect('/chatapp/auth/login');
-
+const registerUser=asyncWrapper(async(req,res)=>{
+    const newUser=await createUserDb(req.body);
+    res.status(200).json(newUser);
 })
-// end--
-
 
 
 module.exports={
-    serveLogin,
-    serveRegister,
-    createUser,
-    logout,
-    testRendder
+    testRoute,
+    login,
+    registerUser
 }
