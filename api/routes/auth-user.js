@@ -3,27 +3,19 @@ const router=express.Router();
 const passwordValidate=require('../middleware/passwd');
 
 const {
-    serveLogin,
-    serveRegister,
-    createUser,
-    logout,
-    testRendder
-
+    testRoute,
+    login,
+    registerUser
 }=require('../controller/user');
-const passport = require('passport');
 
 
 
 
-router.route('/auth/login').get(serveLogin).post(passport.authenticate('local',
-{failureRedirect:'/chatapp/auth/login',failureFlash:{type:'error',message:'Invalid username or password'}}),
-(req,res)=>{
-    res.redirect('/chatapp/main');
-});
-router.route('/auth/register').get(serveRegister).post(passwordValidate,createUser);
-router.route('/auth/logout').get(logout);
-router.route('/main').get(testRendder);
 
+
+router.route('/login').post(login);
+router.route('/register').post(registerUser);
+router.route('/test').get(testRoute);
 
 
 module.exports=router;
