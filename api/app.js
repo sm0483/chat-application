@@ -16,7 +16,7 @@ const errorHandler=require('./middleware/err');
 const userRoute=require('./routes/auth-user');
 
 
-app.use('/chatapp/auth',userRoute);
+app.use('/api/v1/auth',userRoute);
 
 const port=process.env.PORT || 3000;
 
