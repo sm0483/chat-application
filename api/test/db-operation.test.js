@@ -17,7 +17,7 @@ const testUser={
 
 const editUser={
     username:"sm0483",
-    username:"edit@gmail.com",
+    email:"edit@gmail.com",
     password:"Edit@2002"
 }
 
@@ -38,7 +38,7 @@ describe("Test crud operation on db",()=>{
         //assign useId
         userId=responce._id;
         expect(responce.username).toBe(testUser.username);
-        expect().t
+        expect(responce.email).toBe(testUser.email);
     })
 
     test("Test createUser duplicate/failure",async()=>{
