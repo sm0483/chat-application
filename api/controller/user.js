@@ -1,5 +1,5 @@
 const asyncWrapper=require('../error/asyncWrapper');
-const {createUserDb}=require('../db/dboperation');
+const {createUserDb}=require('../db/db-operation');
 const CustomError = require('../error/custom');
 
 
@@ -10,22 +10,17 @@ const {
 
 
 
-// New Structure
-//login routes
-
-//---->
-// createUser
-// Login user
-
-;
-
-const testRoute=asyncWrapper(async(req,res)=>{
-    res.send('hello world');
-})
+//routes
+//----------------
+//>login routes
+//>register routes
 
 
 const login=asyncWrapper(async(req,res)=>{
-    res.send('hello world');
+    res.status(200).json({
+        "test":"working",
+        "status":200
+    })
 })
 
 
@@ -36,7 +31,6 @@ const registerUser=asyncWrapper(async(req,res)=>{
 
 
 module.exports={
-    testRoute,
     login,
     registerUser
 }

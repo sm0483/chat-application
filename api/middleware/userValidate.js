@@ -22,7 +22,7 @@ const getError=(validate)=>{
 
 const userValidate=async(req,res,next)=>{
     const validate=await joiValidate.validate(req.body);
-    console.log(validate.error);
+    console.log("in userValidate"+validate.error);
     if(validate.error){
         const errorMessage=getError(validate.error.message);
             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({

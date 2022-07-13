@@ -9,14 +9,14 @@ const User=require('./models/user');
 
 // to read json request
 app.use(express.json());
-const connectDb=require('./db/connect');
+const {connectDb}=require('./db/connect');
 const errorHandler=require('./middleware/err');
 //routes for auth
 
 const userRoute=require('./routes/auth-user');
 
 
-app.use('/chatapp',userRoute);
+app.use('/chatapp/auth',userRoute);
 
 const port=process.env.PORT || 3000;
 
