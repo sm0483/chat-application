@@ -7,4 +7,11 @@ const connectDb=(url)=>{
     })
 }
 
-module.exports=connectDb;
+const closeDb=()=>{
+    return mongoose.connection.close();
+}
+
+module.exports={
+    connectDb,
+    closeDb
+}
