@@ -1,5 +1,5 @@
 const CustomError = require('../error/custom');
-const joiValidate=require('../jModels/user');
+const joiValidate=require('../jModels/user-register');
 const {
     StatusCodes,
     getReasonPhrase

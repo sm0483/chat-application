@@ -17,9 +17,9 @@ const {
 
 
 const login=asyncWrapper(async(req,res)=>{
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
         "test":"working",
-        "status":200
+        "status":StatusCodes.OK
     })
 })
 
@@ -27,9 +27,9 @@ const login=asyncWrapper(async(req,res)=>{
 const registerUser=asyncWrapper(async(req,res)=>{
     const newUser=await createUserDb(req.body);
     const token=newUser.createJwt();
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
         "token":token,
-        "status":200
+        "status":StatusCodes.OK
     })
 })
 
