@@ -26,7 +26,11 @@ const login=asyncWrapper(async(req,res)=>{
 
 const registerUser=asyncWrapper(async(req,res)=>{
     const newUser=await createUserDb(req.body);
-    res.status(200).json(newUser);
+    const token=newUser.createJwt();
+    res.status(200).json({
+        "token":token,
+        "status":200
+    })
 })
 
 
