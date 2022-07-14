@@ -23,7 +23,7 @@ app.use('/api/v1/auth',userRoute);
 const port=process.env.PORT || 3000;
 
 
-app.listen(port);
+const server=app.listen(port);
 
 const start=async()=>{
     try{
@@ -37,4 +37,4 @@ start();
 
 app.use(errorHandler);
 app.use(pageNotFound);
-module.exports=app;
+module.exports=server;

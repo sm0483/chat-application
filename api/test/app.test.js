@@ -1,5 +1,5 @@
 const request=require('supertest');
-const app=require('../test/test-server');
+const server=require('../test/test-server');
 const {clearDb}=require('../db/db-operation');
 const {closeDb}=require('../db/connect');
 //->Test auth routes
@@ -18,19 +18,18 @@ beforeAll(async()=>{
 
 afterAll(async()=>{
     const re=await closeDb();
+    const serverResponce=await server.close();
 })
 
 describe("Test auth routes",()=>{
     test("Post register route/success",async()=>{
-        const responce=await request(app).post('/api/v1/auth/register')
+        const responce=await request(server).post('/api/v1/auth/register')
         .set('Content-type','application/json')
         .send(testUser);
         expect(responce.statusCode).toBe(200);
         expect(responce.type).toBe('application/json');
-        expect(responce._body.username).toBe(testUser.username);
-        expect(responce._body.email).toBe(testUser.email);
-
-        
-
+        expect(responce._body.token).toBeDefined();
+        expect(responce._body.status).toBe(200);
     })
+
 })
