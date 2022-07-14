@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
-const userValidate=require('../middleware/userValidate');
-const loginValidate=require('../middleware/loginValidate');
+const {userValidate}=require('../middleware/userValidate');
+const {loginValidate}=require('../middleware/loginValidate');
 
 
 const {
