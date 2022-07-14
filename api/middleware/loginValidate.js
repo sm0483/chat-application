@@ -11,6 +11,9 @@ const getMessage=(message)=>{
     else if(message.includes('password')){
         return "password field can't be empty"
     }
+    else if(message.includes(' not allowed')){
+        return "request format is not correct"
+    }
 
 }
 

@@ -15,6 +15,9 @@ const getError=(validate)=>{
     else if(validate.includes("username")){
         return "username must have atleast 4 terms";
     }
+    else if(message.includes(' not allowed')){
+        return "request format is not correct"
+    }
 }
 
 
