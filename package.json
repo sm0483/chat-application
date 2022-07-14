@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon api/app.js",
-        "test": "jest"
+        "test": "jest --watchAll --runInBand --config=jestconfig.json"
     },
     "keywords": [],
     "author": "",

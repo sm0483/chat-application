@@ -6,7 +6,7 @@ const Joi=require('joi');
 const testUser={password:"Test@2001",email:"test@gmail.com"}
 const testUserFM={password:"Test@2001",email:"test@@gmail.com"}
 const testUserFP={password:"",email:"test@gmail.com"}
-const testUserFN={password:"Test@2001",email:"test@gmail.com"}
+
 
 
 describe("Test joi user model",()=>{
@@ -37,14 +37,7 @@ describe("Test joi user model",()=>{
     })
 
 
-    test("user-name/failure",async()=>{
-        const valid=await jUserSchema.validate(testUserFN);
-        expect(valid.error).toBeDefined();
-        const emailError=valid.error.message.includes("username");
-        console.log(valid.error.message);
-        expect(emailError).toBeTruthy();
-
-    })
+ 
 
 
 })

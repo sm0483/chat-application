@@ -41,7 +41,6 @@ describe("Test joi user model",()=>{
         const valid=await jUserSchema.validate(testUserFN);
         expect(valid.error).toBeDefined();
         const emailError=valid.error.message.includes("username");
-        console.log(valid.error.message);
         expect(emailError).toBeTruthy();
 
     })

@@ -17,6 +17,7 @@ beforeAll(async()=>{
 })
 
 afterAll(async()=>{
+    const responce=await clearDb();
     const re=await closeDb();
     const serverResponce=await server.close();
 })
