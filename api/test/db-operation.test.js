@@ -1,4 +1,4 @@
-const connectDb=require('../db/connect');
+const {connectDb,closeDb}=require('../db/connect');
 require('dotenv').config();
 const {
     createUserDb,
@@ -28,6 +28,10 @@ let fakeUserId="8080808080";
 beforeAll(async()=>{
     const connection=await connectDb(process.env.URL);
     const deletedData=await clearDb();
+})
+
+afterAll(async()=>{
+    const responce=await closeDb();
 })
 
 
