@@ -6,32 +6,40 @@ const {
 }=require('http-status-codes');
 
 const getError=(validate)=>{
-    if(validate.includes("email")){
-        return "Not an email";
+    let errorArray=[];
+    for(detail of validate){
+        errorArray.push(detail.message);
     }
-    else if(validate.includes("password")){
-        return "password must have at least one Capital letter and number and one sympol";
+    let message="";
+    for(error of errorArray){
+        if(error.includes('not allowed')){
+            message=message+` ${error},`
+        }
+        else if(error.includes("email")){
+            message=message+" please fill valid email,";
+        }
+        else if(error.includes("password")){
+            message=message+"give valid password{Test@2001},"
+        }
+        else if(error.includes("username")){
+            message=message+"give valid username{atleast 4 charecter},";
+        }
     }
-    else if(validate.includes("username")){
-        return "username must have atleast 4 terms";
-    }
-    else if(message.includes(' not allowed')){
-        return "request format is not correct"
-    }
+    return message;
 }
 
 
 
 
 const userValidate=async(req,res,next)=>{
-    const validate=await joiValidate.validate(req.body);
-    console.log("in userValidate: "+validate.error);
+    const validate=await joiValidate.validate(req.body,{abortEarly:false});
     if(validate.error){
-        const errorMessage=getError(validate.error.message);
-            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
-            "error":errorMessage,
-            "status":StatusCodes.UNPROCESSABLE_ENTITY
-            })
+        const errorMessage=getError(validate.error.details);
+        console.log('from uservalid: '+errorMessage);
+        return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+        "error":errorMessage,
+        "status":StatusCodes.UNPROCESSABLE_ENTITY
+        })
 
        
     }
@@ -39,4 +47,4 @@ const userValidate=async(req,res,next)=>{
 }
     
 
-module.exports=userValidate;
+module.exports={userValidate,getError};
