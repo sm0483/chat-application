@@ -36,6 +36,11 @@ userSchema.methods.createJwt= function(){
     },process.env.jwtKey,{expiresIn:'1d'});
 }
 
+userSchema.methods.comparePassword=async function(givePassword){
+    const isMatch=await bcrypt.compare(givePassword,this.password);
+    return isMatch;
+}
+
 
 const User=mongoose.model("User",userSchema);
 module.exports=User;

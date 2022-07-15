@@ -28,11 +28,18 @@ const clearDb=async()=>{
     return responce;
 }
 
+const getUserbyMailDb=async(email)=>{
+    const responce=await userModel.findOne({email:email});
+    return responce;
+
+}
+
 
 module.exports={
     createUserDb,
     deleteUserDb,
     updateUserDb,
     getUserDb,
-    clearDb
+    clearDb,
+    getUserbyMailDb
 }

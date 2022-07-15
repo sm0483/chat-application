@@ -1,5 +1,5 @@
 const asyncWrapper=require('../error/asyncWrapper');
-const {createUserDb}=require('../db/db-operation');
+const {createUserDb, getUserbyMailDb,}=require('../db/db-operation');
 const CustomError = require('../error/custom');
 
 
@@ -17,8 +17,13 @@ const {
 
 
 const login=asyncWrapper(async(req,res)=>{
+    const {email,password}=req.body;
+    const user=await getUserbyMailDb(email);
+    const responce=user.comparePassword(password);
+    if(!responce)throw new CustomError("invalid credentails",401);
+    const token=user.createJwt();
     res.status(StatusCodes.OK).json({
-        "test":"working",
+        "token":token,
         "status":StatusCodes.OK
     })
 })
