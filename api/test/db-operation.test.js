@@ -5,7 +5,8 @@ const {
     updateUserDb,
     deleteUserDb,
     getUserDb,
-    clearDb
+    clearDb,
+    getUserbyMailDb
 }=require('../db/db-operation');
 
 
@@ -51,6 +52,13 @@ describe("Test crud operation on db",()=>{
         });
     })
 
+    test("Test find user by mail",async()=>{
+        const responce=await getUserbyMailDb(testUser.email);
+        expect(responce.email).toBe(testUser.email);
+        expect(responce.username).toBe(testUser.username);
+        expect(responce.password).toBeDefined();
+    })
+
     test("Test find operation in db/success",async()=>{
         const responce=await getUserDb(userId);
         expect(responce.username).toBe(testUser.username);
@@ -74,17 +82,19 @@ describe("Test crud operation on db",()=>{
             })
         })
     
-        test("Test delete user in db?/Sucess",async()=>{
-            const responce=await deleteUserDb(userId);
-            expect(editUser.username).toBe(responce.username);
-            expect(userId).toStrictEqual(responce._id);
+    test("Test delete user in db?/Sucess",async()=>{
+        const responce=await deleteUserDb(userId);
+        expect(editUser.username).toBe(responce.username);
+        expect(userId).toStrictEqual(responce._id);
+    })
+
+    test("Test delete user in db/failure",async()=>{
+        expect(async()=>{
+            await deleteUserDb(fakeUserId).toThrow(CastError);
         })
-    
-        test("Test delete user in db/failure",async()=>{
-            expect(async()=>{
-                await deleteUserDb(fakeUserId).toThrow(CastError);
-            })
-        })
+    })
+
+ 
     
 })
     
