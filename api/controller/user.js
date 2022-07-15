@@ -19,8 +19,9 @@ const {
 const login=asyncWrapper(async(req,res)=>{
     const {email,password}=req.body;
     const user=await getUserbyMailDb(email);
-    const responce=user.comparePassword(password);
-    if(!responce)throw new CustomError("invalid credentails",401);
+    const responce=await user.comparePassword(password);
+    console.log(responce);
+    if(!responce)throw new CustomError(`${getReasonPhrase(StatusCodes.UNAUTHORIZED)}`,StatusCodes.UNAUTHORIZED);
     const token=user.createJwt();
     res.status(StatusCodes.OK).json({
         "token":token,
