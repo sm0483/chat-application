@@ -15,10 +15,13 @@ const {connectDb,closeDb}=require('../db/connect');
 const errorHandler=require('../middleware/err');
 //routes for auth
 
-const userRoute=require('../routes/auth-user');
+const authRoute=require('../routes/auth-user');
+const userRoute=require('../routes/user');
 
 
-app.use('/api/v1/auth',userRoute);
+app.use('/api/v1/auth',authRoute);
+app.use('/api/v1/user',userRoute);
+
 
 const port=process.env.PORT || 3000;
 

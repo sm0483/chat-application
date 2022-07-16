@@ -7,7 +7,7 @@ const {loginValidate}=require('../middleware/loginValidate');
 const {
     login,
     registerUser
-}=require('../controller/user');
+}=require('../controller/auth-user');
 
 
 router.route('/login').post(loginValidate,login);

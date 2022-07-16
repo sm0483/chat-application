@@ -1,46 +1,35 @@
-const asyncWrapper=require('../error/asyncWrapper');
-const {createUserDb, getUserbyMailDb,}=require('../db/db-operation');
-const CustomError = require('../error/custom');
+
+const asyncWrapper = require("../error/asyncWrapper");
+const {StatusCodes,getReasonPhrase}=require('http-status-codes');
+
+//TODO
+//get user data excluding password
+//operation such as update user --> it need password plus already issued token for
+//delete user -->it need password + already issued token for 
+//create user not allowed
 
 
-const {
-    StatusCodes,
-    getReasonPhrase
-}=require('http-status-codes');
 
-
-
-//routes
-//----------------
-//>login routes
-//>register routes
-
-
-const login=asyncWrapper(async(req,res)=>{
-    const {email,password}=req.body;
-    const user=await getUserbyMailDb(email);
-    const responce=await user.comparePassword(password);
-    console.log(responce);
-    if(!responce)throw new CustomError(`${getReasonPhrase(StatusCodes.UNAUTHORIZED)}`,StatusCodes.UNAUTHORIZED);
-    const token=user.createJwt();
+const getUser=asyncWrapper(async(req,res)=>{
     res.status(StatusCodes.OK).json({
-        "token":token,
-        "status":StatusCodes.OK
+        "test":"doo"
     })
+    
 })
 
+const updateUser=asyncWrapper(async(req,res)=>{
 
-const registerUser=asyncWrapper(async(req,res)=>{
-    const newUser=await createUserDb(req.body);
-    const token=newUser.createJwt();
-    res.status(StatusCodes.OK).json({
-        "token":token,
-        "status":StatusCodes.OK
-    })
 })
+
+const deleteUser=asyncWrapper(async(req,res)=>{
+
+
+})
+
 
 
 module.exports={
-    login,
-    registerUser
+    getUser,
+    updateUser,
+    deleteUser
 }

@@ -2,6 +2,7 @@ const express= require('express');
 const app=express();
 require('dotenv').config();
 const pageNotFound=require('./middleware/not-found');
+const authJwt=require('./middleware/auth');
 
 const User=require('./models/user');
 
@@ -13,10 +14,12 @@ const {connectDb}=require('./db/connect');
 const errorHandler=require('./middleware/err');
 //routes for auth
 
-const userRoute=require('./routes/auth-user');
+const authRoute=require('./routes/auth-user');
+const userRoute=require('./routes/user');
 
 
-app.use('/api/v1/auth',userRoute);
+app.use('/api/v1/auth',authRoute);
+app.use('/api/v1/user',authJwt,userRoute);
 
 const port=process.env.PORT || 3000;
 
