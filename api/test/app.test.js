@@ -17,6 +17,10 @@ const testUserLogin={
     password:"Test@2001"
 }
 
+let testToken="";
+
+
+
 
 beforeAll(async()=>{
     const re=await clearDb();
@@ -48,6 +52,17 @@ describe("Test auth routes",()=>{
         expect(responce._body.token).toBeDefined();
         expect(responce._body.status).toBe(200);
 
+        //asign token
+        token=responce._body.token;
+
     })
+
+    test("Get user route/sucess",async()=>{
+        const responce=await request(server).get('/api/v1/user/')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${token}`)
+        .send()
+        expect(responce.statusCode).toBe(200)
+        })
 
 })

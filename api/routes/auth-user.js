@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const {userValidate}=require('../middleware/userValidate');
 const {loginValidate}=require('../middleware/loginValidate');
+const passwordAuth=require('../middleware/password-auth');
 
 
 const {
@@ -10,7 +11,7 @@ const {
 }=require('../controller/auth-user');
 
 
-router.route('/login').post(loginValidate,login);
+router.route('/login').post(passwordAuth,loginValidate,login);
 router.route('/register').post(userValidate,registerUser);
 
 

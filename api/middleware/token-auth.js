@@ -10,7 +10,7 @@ const {
 
 const authJwt=asyncWrapper(async(req,res,next)=>{
     let token=req.headers.authorization;
-    if(!token)throw new CustomError("token not valid",401);
+    if(!token)throw new CustomError("token not present",StatusCodes.UNAUTHORIZED);
     token=token.split(' ')[1];
     try{
         const isValid=await jwt.verify(token,process.env.jwtKey);

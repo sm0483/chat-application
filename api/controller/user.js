@@ -1,6 +1,7 @@
 
 const asyncWrapper = require("../error/asyncWrapper");
 const {StatusCodes,getReasonPhrase}=require('http-status-codes');
+const { getUserByQuery } = require("../db/db-operation");
 
 //TODO
 //get user data excluding password
@@ -11,8 +12,12 @@ const {StatusCodes,getReasonPhrase}=require('http-status-codes');
 
 
 const getUser=asyncWrapper(async(req,res)=>{
+    const userId=req.user.userId;
+    const userData=await getUserByQuery({_id:userId});
+    console.log(userData);
     res.status(StatusCodes.OK).json({
-        "test":"doo"
+        "username":userData.username,
+        "email":userData.email,
     })
     
 })

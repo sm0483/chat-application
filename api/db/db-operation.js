@@ -34,6 +34,12 @@ const getUserbyMailDb=async(email)=>{
 
 }
 
+const getUserByQuery=async(query)=>{
+    const responce=await userModel.findOne(query);
+    return responce;
+
+}
+
 
 module.exports={
     createUserDb,
@@ -41,5 +47,6 @@ module.exports={
     updateUserDb,
     getUserDb,
     clearDb,
-    getUserbyMailDb
+    getUserbyMailDb,
+    getUserByQuery
 }

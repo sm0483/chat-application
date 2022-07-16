@@ -2,7 +2,7 @@ const express= require('express');
 const app=express();
 require('dotenv').config();
 const pageNotFound=require('./middleware/not-found');
-const authJwt=require('./middleware/auth');
+const authJwt=require('./middleware/token-auth');
 
 const User=require('./models/user');
 

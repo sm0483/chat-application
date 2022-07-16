@@ -17,10 +17,8 @@ const {
 
 
 const login=asyncWrapper(async(req,res)=>{
-    const {email,password}=req.body;
-    const user=await getUserbyMailDb(email);
-    const isPassword=await user.comparePassword(password);
-    if(!isPassword)throw new CustomError(`${getReasonPhrase(StatusCodes.UNAUTHORIZED)}`,StatusCodes.UNAUTHORIZED);
+    const user=req.userDb;
+    console.log(user);
     const token=user.createJwt();
     res.status(StatusCodes.OK).json({
         "token":token,
