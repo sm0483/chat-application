@@ -28,11 +28,7 @@ const clearDb=async()=>{
     return responce;
 }
 
-const getUserbyMailDb=async(email)=>{
-    const responce=await userModel.findOne({email:email});
-    return responce;
 
-}
 
 const getUserByQuery=async(query)=>{
     const responce=await userModel.findOne(query);
@@ -47,6 +43,5 @@ module.exports={
     updateUserDb,
     getUserDb,
     clearDb,
-    getUserbyMailDb,
     getUserByQuery
 }
