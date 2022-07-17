@@ -1,7 +1,7 @@
 
 const asyncWrapper = require("../error/asyncWrapper");
 const {StatusCodes,getReasonPhrase}=require('http-status-codes');
-const { getUserByQuery, updateUserDb } = require("../db/db-operation");
+const { getUserByQuery, updateUserDb, deleteUserDb } = require("../db/db-operation");
 
 //TODO
 //get user data excluding password
@@ -23,10 +23,20 @@ const getUser=asyncWrapper(async(req,res)=>{ //auth with normal token
 
 const updateUser=asyncWrapper(async(req,res)=>{   //auth with super token
     const userId=req.user.userId;
-    const updatedUser=await updateUserDb(userId);
+    const updatedUser=await updateUserDb(userId,req.body);
+    res.status(StatusCodes.OK).json({
+        "username":updatedUser.username,
+        "email":updatedUser.email
+    })
 })
 
 const deleteUser=asyncWrapper(async(req,res)=>{  //auth with super token
+    const userId=req.user.userId;
+    const deletedUser=await deleteUserDb(userId);
+    res.status(StatusCodes.OK).json({
+        "username":deletedUser.username,
+        "email":deletedUser.email
+    })
 
     
 })
