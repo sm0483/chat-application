@@ -7,11 +7,13 @@ const {
     deleteUser,
     getUser
 }=require('../controller/user');
+const passwordAuth=require('../middleware/password-auth');
 
 //update path /:id patch
 //delete path /:id delete
 //get path /:id get
 
 
-router.route('/').patch(updateUser).get(getUser).delete(deleteUser);
+router.route('/').patch(passwordAuth,updateUser).get(getUser).delete(passwordAuth,deleteUser);
+
 module.exports=router;

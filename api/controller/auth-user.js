@@ -1,5 +1,5 @@
 const asyncWrapper=require('../error/asyncWrapper');
-const {createUserDb, getUserbyMailDb,}=require('../db/db-operation');
+const {createUserDb}=require('../db/db-operation');
 const CustomError = require('../error/custom');
 
 
@@ -14,11 +14,11 @@ const {
 //----------------
 //>login routes
 //>register routes
+//>authorzation to delete accoun and update accoun
 
 
 const login=asyncWrapper(async(req,res)=>{
     const user=req.userDb;
-    console.log(user);
     const token=user.createJwt();
     res.status(StatusCodes.OK).json({
         "token":token,
@@ -36,8 +36,20 @@ const registerUser=asyncWrapper(async(req,res)=>{
     })
 })
 
+const updateToken=asyncWrapper(async(req,res)=>{
+    const user=req.userDb;
+    console.log(user);
+    const token=await user.createSuperToken('update-delete');
+    res.status(StatusCodes.OK).json({
+        "Supertoken":token,
+        "status":StatusCodes.OK
+    })
+
+})
+
 
 module.exports={
     login,
-    registerUser
+    registerUser,
+    updateToken
 }

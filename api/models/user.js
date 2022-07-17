@@ -41,6 +41,15 @@ userSchema.methods.comparePassword=async function(givePassword){
     return isMatch;
 }
 
+userSchema.methods.createSuperToken=async function(scope){
+    return jwt.sign({
+        "userId":this._id,
+        "username":this.username,
+        "email":this.email,
+        "scope":scope
+    },process.env.jwtSuperKey,{expiresIn:'3600000ms'})
+
+}
 
 const User=mongoose.model("User",userSchema);
 module.exports=User;
