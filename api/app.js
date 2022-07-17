@@ -19,7 +19,7 @@ const userRoute=require('./routes/user');
 
 
 app.use('/api/v1/auth',authRoute);
-app.use('/api/v1/user',authJwt,userRoute);
+app.use('/api/v1/user',userRoute);
 
 const port=process.env.PORT || 3000;
 

@@ -11,10 +11,9 @@ const { getUserByQuery, updateUserDb } = require("../db/db-operation");
 
 
 
-const getUser=asyncWrapper(async(req,res)=>{
+const getUser=asyncWrapper(async(req,res)=>{ //auth with normal token
     const userId=req.user.userId;
     const userData=await getUserByQuery({_id:userId});
-    console.log(userData);
     res.status(StatusCodes.OK).json({
         "username":userData.username,
         "email":userData.email,
@@ -22,15 +21,14 @@ const getUser=asyncWrapper(async(req,res)=>{
     
 })
 
-const updateUser=asyncWrapper(async(req,res)=>{
+const updateUser=asyncWrapper(async(req,res)=>{   //auth with super token
     const userId=req.user.userId;
     const updatedUser=await updateUserDb(userId);
 })
 
-const deleteUser=asyncWrapper(async(req,res)=>{
+const deleteUser=asyncWrapper(async(req,res)=>{  //auth with super token
 
-
-
+    
 })
 
 
