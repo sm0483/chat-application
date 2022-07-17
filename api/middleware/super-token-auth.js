@@ -10,8 +10,7 @@ const {
 
 const supertokenValidate=asyncWrapper(async(req,res,next)=>{
     let token=req.headers.authorization;
-    console.log(token);
-    if(!token)throw new CustomError("token not present",StatusCodes.UNAUTHORIZED);
+     if(!token)throw new CustomError("token not present",StatusCodes.UNAUTHORIZED);
     token=token.split(' ')[1];
     try{
         const isValid=await jwt.verify(token,process.env.jwtSuperKey);

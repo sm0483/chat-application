@@ -38,7 +38,6 @@ const registerUser=asyncWrapper(async(req,res)=>{
 
 const updateToken=asyncWrapper(async(req,res)=>{
     const user=req.userDb;
-    console.log(user);
     const token=await user.createSuperToken('update-delete');
     res.status(StatusCodes.OK).json({
         "Supertoken":token,

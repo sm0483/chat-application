@@ -4,9 +4,9 @@ const {
 }=require('http-status-codes');
 
 const pageNotFound=(req,res,next)=>{
-    res.status(StatusCodes.BAD_REQUEST).json({
-        "error":getReasonPhrase(StatusCodes.BAD_REQUEST),
-        "statusCode":StatusCodes.BAD_REQUEST
+    res.status(StatusCodes.NOT_FOUND).json({
+        "error":getReasonPhrase(StatusCodes.NOT_FOUND),
+        "statusCode":StatusCodes.NOT_FOUND
     })
 }
 
