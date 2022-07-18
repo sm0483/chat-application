@@ -38,7 +38,18 @@ const getUserByQuery=async(query)=>{
 
 const getUsersDb=async()=>{
     const responce=await userModel.find({});
-    return responce;
+    let newResponse=[];
+    let newObj={};
+    for(user of responce){
+        const{username,email}=user;
+        newObj={
+            "username":username,
+            "email":email
+        }
+        newResponse.push(newObj);
+    }
+    return newResponse;
+     
 }
 
 
