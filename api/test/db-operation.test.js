@@ -6,7 +6,8 @@ const {
     deleteUserDb,
     getUserDb,
     clearDb,
-    getUserByQuery
+    getUserByQuery,
+    getUsersDb
 }=require('../db/db-operation');
 
 
@@ -20,6 +21,12 @@ const editUser={
     username:"sm0483",
     email:"edit@gmail.com",
     password:"Edit@2002"
+}
+
+const testUser2={
+    username:"sm2003",
+    email:"sm0483@gmail.com",
+    password:"Sm@048343543"
 }
 
 let userId=undefined;
@@ -52,6 +59,13 @@ describe("Test crud operation on db",()=>{
         });
     })
 
+    test("Test createUser2/Sucess",async()=>{
+        const responce=await createUserDb(testUser2);
+        //assign useId
+        expect(responce.username).toBe(testUser2.username);
+        expect(responce.email).toBe(testUser2.email);
+    })
+
     test("Test find user by query",async()=>{
         const responce=await getUserByQuery({email:testUser.email});
         expect(responce.email).toBe(testUser.email);
@@ -81,6 +95,12 @@ describe("Test crud operation on db",()=>{
     
             })
         })
+
+    test("Test get all user in one go",async()=>{
+        const responce=await getUsersDb();
+        expect(responce[0].email).toBe(testUser.email);
+        expect(responce[1].username).toBe(testUser2.username);
+    })   
     
     test("Test delete user in db?/Sucess",async()=>{
         const responce=await deleteUserDb(userId);
@@ -93,6 +113,8 @@ describe("Test crud operation on db",()=>{
             await deleteUserDb(fakeUserId).toThrow(CastError);
         })
     })
+
+    
 
  
     
