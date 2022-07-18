@@ -36,6 +36,11 @@ const getUserByQuery=async(query)=>{
 
 }
 
+const getUsersDb=async()=>{
+    const responce=await userModel.find({});
+    return responce;
+}
+
 
 module.exports={
     createUserDb,
@@ -43,5 +48,6 @@ module.exports={
     updateUserDb,
     getUserDb,
     clearDb,
-    getUserByQuery
+    getUserByQuery,
+    getUsersDb
 }
