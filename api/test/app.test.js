@@ -2,6 +2,10 @@ const request=require('supertest');
 const server=require('../test/test-server');
 const {clearDb}=require('../db/db-operation');
 const {closeDb}=require('../db/connect');
+const {
+getReasonPhrase,StatusCodes
+}=require('http-status-codes');
+
 //->Test auth routes
 //>post register
 //>post login
@@ -45,7 +49,7 @@ describe("Test auth routes",()=>{
         const responce=await request(server).post('/api/v1/auth/authorize/797')
         .set('Content-type','application/json')
         .send()
-        expect(responce.statusCode).toBe(404)
+        expect(responce.statusCode).toBe(StatusCodes.NOT_FOUND)
     })
 
 
@@ -54,17 +58,17 @@ describe("Test auth routes",()=>{
         const responce=await request(server).post('/api/v1/auth/register')
         .set('Content-type','application/json')
         .send(testUserRegister);
-        expect(responce.statusCode).toBe(200);
+        expect(responce.statusCode).toBe(StatusCodes.OK);
         expect(responce.type).toBe('application/json');
         expect(responce._body.token).toBeDefined();
-        expect(responce._body.status).toBe(200);
+        expect(responce._body.status).toBe(StatusCodes.OK);
     })
 
     test("/Post register route/cred-not-valid",async()=>{
         const responce=await request(server).post('/api/v1/auth/register')
         .set('Content-type','application/json')
         .send(editedUser);
-        expect(responce.statusCode).toBe(422);
+        expect(responce.statusCode).toBe(StatusCodes.UNPROCESSABLE_ENTITY);
         expect(responce.type).toBe('application/json');
       
     })
@@ -73,10 +77,10 @@ describe("Test auth routes",()=>{
         const responce=await request(server).post('/api/v1/auth/login')
         .set('Content-type','application/json')
         .send(testUserLogin);
-        expect(responce.statusCode).toBe(200);
+        expect(responce.statusCode).toBe(StatusCodes.OK);
         expect(responce.type).toBe('application/json');
         expect(responce._body.token).toBeDefined();
-        expect(responce._body.status).toBe(200);
+        expect(responce._body.status).toBe(StatusCodes.OK);
 
         //asign token
         testToken=responce._body.token;
@@ -89,7 +93,7 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${testToken}`)
         .send(testUserPassword)
         expect(responce._body.Supertoken).toBeDefined();
-        expect(responce._body.status).toBe(200);
+        expect(responce._body.status).toBe(StatusCodes.OK);
         superToken=responce._body.Supertoken;
     })
 
@@ -100,7 +104,7 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${testToken.replace('a','x')}`)
         .send(testUserPassword)
         expect(responce._body.Supertoken).toBeUndefined();
-        expect(responce.statusCode).toBe(401)
+        expect(responce.statusCode).toBe(StatusCodes.UNAUTHORIZED)
     })
 
 
@@ -110,7 +114,7 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${testToken}`)
         .send()
 
-        expect(responce.statusCode).toBe(200);
+        expect(responce.statusCode).toBe(StatusCodes.OK);
         expect(responce._body.username).toBe(testUserRegister.username);
         expect(responce._body.email).toBe(testUserRegister.email)
 
@@ -124,7 +128,7 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${superToken}`)
         .send(editedUser)
 
-        expect(responce.statusCode).toBe(200);
+        expect(responce.statusCode).toBe(StatusCodes.OK);
         expect(responce._body.username).toBe(editedUser.username);
         expect(responce._body.email).toBe(testUserRegister.email)
 
@@ -136,7 +140,7 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${superToken.replace('b','y')}`)
         .send(editedUser)
 
-        expect(responce.statusCode).toBe(401);
+        expect(responce.statusCode).toBe(StatusCodes.UNAUTHORIZED);
       
 
     })
@@ -148,9 +152,9 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${superToken}`)
         .send()
 
-        expect(responce.statusCode).toBe(200);
+        expect(responce.statusCode).toBe(StatusCodes.OK);
         expect(responce._body.username).toBe(editedUser.username);
-        expect(responce._body.email).toBe(testUserRegister.email)
+        expect(responce._body.email).toBe(testUserRegister.email);
 
     })
 
@@ -160,7 +164,7 @@ describe("Test auth routes",()=>{
         .set('Authorization',`Bearer ${superToken.replace('a','x')}`)
         .send()
 
-        expect(responce.statusCode).toBe(401);
+        expect(responce.statusCode).toBe(StatusCodes.UNAUTHORIZED);
 
 
     })
