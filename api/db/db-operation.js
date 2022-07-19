@@ -41,10 +41,11 @@ const getUsersDb=async()=>{
     let newResponse=[];
     let newObj={};
     for(user of responce){
-        const{username,email}=user;
+        const{username,email,_id}=user;
         newObj={
             "username":username,
-            "email":email
+            "email":email,
+            "userId":_id
         }
         newResponse.push(newObj);
     }
