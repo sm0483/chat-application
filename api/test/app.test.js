@@ -193,6 +193,7 @@ describe("Test auth routes",()=>{
         .send();
         expect(response._body.message[0].username).toBe(testUser2.username);
         expect(response._body.message[0].email).toBe(testUser2.email);
+        expect(response._body.message[0].userId).toBeDefined();
     })
 
 
