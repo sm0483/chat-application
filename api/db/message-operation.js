@@ -26,12 +26,20 @@ const deleteMessageDb=async(messageId)=>{
 }
 
 const getMessageByUserid=async(senderId,reciverId)=>{
-    const messageArray=[];
-    const response1=await messageModel.find({senderId:senderId} && {reciverId:reciverId} );
-    const response2=await messageModel.find({senderId:reciverId} && {reciverId:senderId});
-    messageArray.push(response1);
-    messageArray.push(response2);
-    return messageArray;
+    const query={
+        $or:[
+            {
+                $and:[{senderId:reciverId},{reciverId:senderId}]
+            },
+            {
+                $and:[{senderId:senderId},{reciverId:reciverId}]
+            }
+        ]
+    }
+    //structure of query
+    //{senderId:senderId} && {reciverId:reciverId} || {senderId:reciverId} && {reciverId:senderId}
+    const response=await messageModel.find(query);
+    return response;
 
 }
 
