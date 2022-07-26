@@ -197,10 +197,15 @@ describe("Test auth routes",()=>{
     })
 
 
+})
 
 
+describe('Test all contact route',()=>{
+    test('/Get route for testing route/success',async()=>{
+        const response=await request(server).get('/api/v1/contact')
+        .send();
+        expect(response.type).toBe('application/json');
+    })
 
-
-    
 
 })

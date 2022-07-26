@@ -18,11 +18,17 @@ const errorHandler=require('../middleware/err');
 const authRoute=require('../routes/auth-user');
 const userRoute=require('../routes/user');
 const appUser=require('../routes/list');
+// const messageRoute=require('../routes/message');
+const contactRoute=require('../routes/contact');
 
 
 app.use('/api/v1/auth',authRoute);
 app.use('/api/v1/user',userRoute);
 app.use('/api/v1/',appUser);
+// app.use('/api/v1/message',messageRoute);
+app.use('/api/v1/contact',contactRoute);
+
+
 
 
 
