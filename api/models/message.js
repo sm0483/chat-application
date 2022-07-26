@@ -10,13 +10,13 @@ const custom=[sizeValidate,'size limit exeeded'];
 
 const messageSchema=new mongoose.Schema({
     senderId:{
-        type:String,
-        ref:mongoose.Schema.Types.ObjectId,ref:'User',
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
         required:[true,'SenderId is must']
     },
     reciverId:{
-        type:String,
-        ref:mongoose.Schema.Types.ObjectId,ref:'User',
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
         required:[true,'SenderId is must']
 
     },
