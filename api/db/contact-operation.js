@@ -1,5 +1,6 @@
 const contactModel=require('../models/contact');
 const CustomError=require('../error/custom');
+const mongoose=require('mongoose');
 
 const createContactDb=async(data)=>{
     const {senderId:id1,reciverId:id2}=data;
@@ -7,6 +8,7 @@ const createContactDb=async(data)=>{
     return response;
 
 }
+
 
 
 const getAllMessageIdDb=async(data)=>{ //only senderId present
