@@ -232,20 +232,6 @@ const testContact1={
     reciverId:getObj(userTwo),
 }
 
-const testContact2={
-    senderId:getObj(userTwo),
-    reciverId:getObj(userOne),
-}
-
-const testContact3={
-    senderId:getObj(userTwo),
-    reciverId:getObj(userThree),
-}
-
-const testContact4={
-    senderId:getObj(userTwo),
-    reciverId:getObj(userThree),
-}
 
 const testContactMain={
     senderId:"",
@@ -255,6 +241,11 @@ const testContactMain={
 const testContactMainDuplcate={
     senderId:getObj(userThree),
     reciverId:""
+}
+
+const testContactMain1={
+    senderId:"",
+    reciverId:getObj(userTwo),
 }
 
 let thirdToken=undefined;
@@ -270,7 +261,8 @@ describe('Test all contact route',()=>{
         expect(response._body.status).toBe(StatusCodes.OK);
         thirdToken=response._body.token;
         testContactMain.senderId=response._body.userId;
-        testContactMainDuplcate.reciverId=response._body.userId
+        testContactMainDuplcate.reciverId=response._body.userId;
+        testContactMain1.senderId=response._body.userId;
     })
 
 
@@ -286,14 +278,24 @@ describe('Test all contact route',()=>{
 
     })
 
-    test('/Post create contact duplcate route/success',async()=>{
-        expect(async()=>{
-            const response=await request(server).post('/api/v1/contact')
-            .set('Content-type','application/json')
-            .set('Authorization',`Bearer ${thirdToken}`)
-            .send(testContactMainDuplcate);
-            response.toThrow()
-        })
+
+    test('/Post create contact 2 route/success',async()=>{
+        const response=await request(server).post('/api/v1/contact')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send(testContactMain1);
+        expect(response.type).toBe('application/json');
+        expect(JSON.stringify(response._body.id1)).toBe(JSON.stringify(testContactMain1.senderId));
+        expect(JSON.stringify(response._body.id2)).toBe(JSON.stringify(testContactMain1.reciverId));
+
+    })
+
+    test('/Post create contact duplcate route/failure',async()=>{
+        const response=await request(server).post('/api/v1/contact')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send(testContact1);
+        expect(response._body.error).toBeDefined();
 
     })
 
@@ -305,22 +307,26 @@ describe('Test all contact route',()=>{
         expect(response._body.error).toBeDefined();
     })
 
-    // test('/Get all contact by senderId route/success',async()=>{
-    //     const response=await request(server).get(`/api/v1/contact/find/${userOne}`)
-    //     .set('Content-type','application/json')
-    //     .set('Authorization',`Bearer ${thirdToken}`)
-    //     .send();
+    test('/Get all contact by senderId route/success',async()=>{
+        const response=await request(server).get(`/api/v1/contact/find/${testContactMain.senderId}`)
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send();
+        expect(response.statusCode).toBe(StatusCodes.OK);
+        expect(response._body.message).toBeDefined();
+        expect(response._body.message[0].id1).toBe(testContactMain.senderId);
 
-    //     // console.log(response._body);
+    })
 
-    //     expect(response._body.message).toBeDefined();
-    //     expect(response._body.message[0].id1).toBeDefined();
+    test('/Get all contact by senderId route/failure due senderId not valid',async()=>{
+        const response=await request(server).get(`/api/v1/contact/find/${testContactMain.senderId.replace('1','x')}`)
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send();
+        expect(response.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+        expect(response._body.error).toBeDefined();
 
-
-
-
-
-    // })
+    })
 
 
 
