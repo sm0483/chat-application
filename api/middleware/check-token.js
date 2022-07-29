@@ -19,6 +19,10 @@ const matchToken=asyncWrapper(async(req,res,next)=>{
         if(method==='POST'){
             if(req.body.senderId!==senderId) throw new CustomError(getReasonPhrase(StatusCodes.FORBIDDEN),StatusCodes.FORBIDDEN);
         }
+        else if(method==='GET'){
+            console.log(req.params.senderId);
+            if(req.params.senderId!==senderId) throw new CustomError(getReasonPhrase(StatusCodes.FORBIDDEN),StatusCodes.FORBIDDEN)
+        }
     }
     catch(err){
         throw new CustomError(getReasonPhrase(StatusCodes.UNAUTHORIZED),StatusCodes.UNAUTHORIZED);
