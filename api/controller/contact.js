@@ -37,8 +37,15 @@ const getAllMessageId=asyncWrapper(async(req,res)=>{
 })
 
 const getMessageId=asyncWrapper(async(req,res)=>{
+    const senderId=req.params.senderId;
+    const reciverId=req.params.reciverId;
+    const response=await getMessageIdDb({
+        senderId,
+        reciverId
+    });
     res.status(StatusCodes.OK).json({
-        "test":"done1",
+        "message":response,
+        "status":StatusCodes.OK
     })
 
 })
