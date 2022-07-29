@@ -17,7 +17,6 @@ const matchToken=asyncWrapper(async(req,res,next)=>{
         const isValid=await jwt.verify(token,process.env.jwtKey);
         const senderId=isValid.userId;
         if(method==='POST'){
-            console.log(senderId===req.body.senderId);
             if(req.body.senderId!==senderId) throw new CustomError(getReasonPhrase(StatusCodes.FORBIDDEN),StatusCodes.FORBIDDEN);
         }
     }

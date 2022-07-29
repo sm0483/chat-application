@@ -18,8 +18,13 @@ const testRoute=asyncWrapper(async(req,res)=>{
 })
 
 const createContact=asyncWrapper(async(req,res)=>{
-    const response=await createContactDb(req.body);
-    res.status(StatusCodes.OK).json(response);
+    //if already present send back data else create new than send back data
+    const isPresent=await getMessageIdDb(req.body);
+    if(isPresent && !isPresent.length){
+        const response=await createContactDb(req.body);
+        return res.status(StatusCodes.OK).json(response);
+    }
+    return res.status(StatusCodes.OK).json(isPresent[0]);
 })
 
 const getAllMessageId=asyncWrapper(async(req,res)=>{
