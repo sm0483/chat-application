@@ -329,5 +329,15 @@ describe('Test all contact route',()=>{
     })
 
 
+    test('/Get all contact by senderId and reciverId route/success',async()=>{
+        const response=await request(server).get(`/api/v1/contact/find/${testContactMain.senderId}/${testContactMain.reciverId}`)
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send();
+        expect(response.statusCode).toBe(StatusCodes.OK);
+        expect(response._body.message.length).toBe(1);
+    })
+
+
 
 })
