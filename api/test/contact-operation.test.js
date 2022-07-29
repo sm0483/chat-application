@@ -81,7 +81,7 @@ describe("Test on contactModel ",()=>{
         })
     })
 
-    test("get all message using messageId",async()=>{
+    test("get all message using senderId",async()=>{
         const response=await getAllMessageIdDb(testContact1);
         expect(JSON.stringify(response[0].id1)).toBe(JSON.stringify(testContact1.senderId));
         expect(JSON.stringify(response[0].id2)).toBe(JSON.stringify(testContact1.reciverId));
