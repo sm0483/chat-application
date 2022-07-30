@@ -5,8 +5,7 @@ const {
     createContactDb,
     deleteContactDb,
     getAllMessageIdDb,
-    getMessageIdDb,
-    clearDb
+    getMessageIdDb
 }=require('../db/contact-operation');
 
 

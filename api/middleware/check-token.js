@@ -20,7 +20,7 @@ const matchToken=asyncWrapper(async(req,res,next)=>{
             if(req.body.senderId!==senderId) throw new CustomError(getReasonPhrase(StatusCodes.FORBIDDEN),StatusCodes.FORBIDDEN);
         }
         else if(method==='GET'){
-            console.log(req.params.senderId);
+            // console.log(req.params.senderId);
             if(req.params.senderId!==senderId) throw new CustomError(getReasonPhrase(StatusCodes.FORBIDDEN),StatusCodes.FORBIDDEN)
         }
     }
@@ -32,3 +32,4 @@ const matchToken=asyncWrapper(async(req,res,next)=>{
 })
 
  module.exports=matchToken;
+ 
