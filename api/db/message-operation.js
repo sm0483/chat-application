@@ -20,16 +20,18 @@ const deleteMessageDb=async(messageId)=>{
 
 
 const getAllMessageDb=async(data)=>{
-    const {messageId,senderId}=data;
+    const {contactId,senderId}=data;
     const query={
         $and:[
-            {messageId:messageId},
+            {contactId:contactId},
             {senderId:senderId}
         ]
     }
     const response=await messageModel.find(query);
     return response;
 }
+
+
 
 module.exports={
     createMessageDb,

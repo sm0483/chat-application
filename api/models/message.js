@@ -1,15 +1,15 @@
 const mongoose=require('mongoose');
 
-function sizeValidate(val){
-    return val.length===2;
-}
+// function sizeValidate(val){
+//     return val.length===2;
+// }
 
 
-const custom=[sizeValidate,'size limit exeeded'];
+// const custom=[sizeValidate,'size limit exeeded'];
 
 
 const messageSchema=new mongoose.Schema({
-    messageId:{
+    contactId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Contact",
         required:[true,'Contact id shoud present']
