@@ -3,6 +3,7 @@ const server=require('../test/test-server');
 const {clearDb}=require('../db/db-operation');
 const {closeDb}=require('../db/connect');
 const{clearDb:clearContact}=require('../db/contact-operation');
+const {clearDb:clearMessage}=require('../db/message-operation');
 
 const {
 getReasonPhrase,StatusCodes
@@ -54,11 +55,13 @@ const editedUser={
 beforeAll(async()=>{
     const re=await clearDb();
     await clearContact();
+    await clearMessage();
 })
 
 afterAll(async()=>{
     const response=await clearDb();
     await clearContact();
+    await clearMessage();
     const re=await closeDb();
     const serverresponse=await server.close();
 })
@@ -319,7 +322,7 @@ describe('Test all contact route',()=>{
     })
 
     test('/Get all contact by senderId route/failure due senderId not valid',async()=>{
-        const response=await request(server).get(`/api/v1/contact/find/${testContactMain.senderId.replace('1','x')}`)
+        const response=await request(server).get("/api/v1/contact/find/0808080808080")
         .set('Content-type','application/json')
         .set('Authorization',`Bearer ${thirdToken}`)
         .send();
@@ -339,5 +342,265 @@ describe('Test all contact route',()=>{
     })
 
 
+})
+
+const messageIdOne="62d78afd4e5a0f1a955f9f0f";
+const messageIdTwo="62k78afd4e5a0f1a955f9f0d";
+let user=undefined;
+
+const testMessage={
+    senderId:getObj(userOne),
+    contactId:getObj(messageIdOne),
+    message:"Hello how are you"
+}
+
+const testMessageOne={
+    senderId:getObj(userOne),
+    contactId:getObj(messageIdOne),
+    message:"Hello"
+}
+
+const testMessageTwo={
+    senderId:"",
+    contactId:getObj(messageIdOne),
+    message:"what the funck"
+}
+
+
+const testUserRegisterTwo={
+    username:"sm0483",
+    email:"test10@gmail.com",
+    password:"Test@2001"
+}
+
+
+
+
+
+
+let messageUserToken=undefined;
+
+let contactId=undefined;
+
+
+describe("Test all Message route",()=>{
+
+    test("/Post register route/success",async()=>{
+        const response=await request(server).post('/api/v1/auth/register')
+        .set('Content-type','application/json')
+        .send(testUserRegisterTwo);
+        expect(response.statusCode).toBe(StatusCodes.OK);
+        expect(response.type).toBe('application/json');
+        expect(response._body.userId).toBeDefined();
+        expect(response._body.token).toBeDefined();
+        expect(response._body.status).toBe(StatusCodes.OK);
+        messageUserToken=response._body.token;
+        testMessageTwo.senderId=getObj(response._body.userId);
+    })
+
+
+    test("/Post update user token not present route/sucess",async()=>{
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        // .set('Authorization',`Bearer ${messageUserToken}`)
+        .send(testMessage)
+        expect(response._body.error).toBeDefined();
+    })
+
+
+    test("/Post update user token and senderId don't match route/failure",async()=>{
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${messageUserToken}`)
+        .send(testMessage)
+        expect(response._body.error).toBeDefined();
+
+    })
+
+
+    test("/Post update user token and senderId match route/sucess",async()=>{
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${messageUserToken}`)
+        .send(testMessageTwo)
+        expect(response._body.message).toBeDefined();
+        expect(JSON.stringify(response._body.message.contactId)).toBe(JSON.stringify(testMessageTwo.contactId));
+        expect(JSON.stringify(response._body.message.senderId)).toBe(JSON.stringify(testMessageTwo.senderId));
+    })
+
 
 })
+
+
+
+
+
+// for other test
+
+const testUserRegisterThree={
+    username:"sm3434",
+    email:"test4@gmail.com",
+    password:"Test@2001"
+}
+
+let tokenThree=undefined;
+let userIdThree=undefined;
+
+
+const testUserRegisterFour={
+    username:"sm5454",
+    email:"test45@gmail.com",
+    password:"Test@2001"
+}
+
+let tokenFour=undefined;
+let userIdFour=undefined;
+
+
+
+
+const testMessageLast={  //three->four // fourt->three
+    senderId:"",
+    contactId:"",
+    message:"ok da"
+}
+
+
+
+const testContactLast={
+    senderId:"",
+    reciverId:"",
+}
+
+
+let contactIdLast=undefined;
+
+describe("Extensive test on message get route",()=>{
+
+    //register two user
+    //store token
+
+    //store senderId
+    //create message type
+
+    //create contact with each other
+    //send message->{
+        // three->four
+        // four->three
+
+
+    //}
+
+
+
+    test("/Post register-1 route/success",async()=>{
+        const response=await request(server).post('/api/v1/auth/register')
+        .set('Content-type','application/json')
+        .send(testUserRegisterFour);
+        expect(response.statusCode).toBe(StatusCodes.OK);
+        expect(response.type).toBe('application/json');
+        expect(response._body.userId).toBeDefined();
+        expect(response._body.token).toBeDefined();
+        expect(response._body.status).toBe(StatusCodes.OK);
+        tokenFour=response._body.token;
+        userIdFour=response._body.userId;
+    })
+
+
+    test("/Post register-2 route/success",async()=>{
+        const response=await request(server).post('/api/v1/auth/register')
+        .set('Content-type','application/json')
+        .send(testUserRegisterThree);
+        expect(response.statusCode).toBe(StatusCodes.OK);
+        expect(response.type).toBe('application/json');
+        expect(response._body.userId).toBeDefined();
+        expect(response._body.token).toBeDefined();
+        expect(response._body.status).toBe(StatusCodes.OK);
+        tokenThree=response._body.token;
+        userIdThree=response._body.userId;
+    })
+
+
+    //create contact
+
+    test('/Post create contact {3->4} route/success',async()=>{
+        testContactLast.senderId=getObj(userIdThree);
+        testContactLast.reciverId=getObj(userIdFour);
+        const response=await request(server).post('/api/v1/contact')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenThree}`)
+        .send(testContactLast);
+        expect(response.type).toBe('application/json');
+        expect(JSON.stringify(response._body.id1)).toBe(JSON.stringify(testContactLast.senderId));
+        expect(JSON.stringify(response._body.id2)).toBe(JSON.stringify(testContactLast.reciverId));
+        contactIdLast=response._body._id;
+
+    })
+
+    //create message
+
+    test("/Post create message route/sucess",async()=>{
+        testMessageLast.senderId=userIdThree;
+        testMessageLast.contactId=contactIdLast;
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenThree}`)
+        .send(testMessageLast)
+        expect(response._body.message).toBeDefined();
+        expect(JSON.stringify(response._body.message.contactId)).toBe(JSON.stringify(testMessageLast.contactId));
+        expect(JSON.stringify(response._body.message.senderId)).toBe(JSON.stringify(testMessageLast.senderId));
+    })
+
+    test("/Post create message route/sucess",async()=>{
+        testMessageLast.senderId=userIdThree;
+        testMessageLast.contactId=contactIdLast;
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenThree}`)
+        .send(testMessageLast)
+        expect(response._body.message).toBeDefined();
+        expect(JSON.stringify(response._body.message.contactId)).toBe(JSON.stringify(testMessageLast.contactId));
+        expect(JSON.stringify(response._body.message.senderId)).toBe(JSON.stringify(testMessageLast.senderId));
+    })
+
+
+    test("/Post create message route/sucess",async()=>{
+        testMessageLast.senderId=userIdFour;
+        testMessageLast.contactId=contactIdLast;
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenFour}`)
+        .send(testMessageLast)
+        expect(response._body.message).toBeDefined();
+        expect(JSON.stringify(response._body.message.contactId)).toBe(JSON.stringify(testMessageLast.contactId));
+        expect(JSON.stringify(response._body.message.senderId)).toBe(JSON.stringify(testMessageLast.senderId));
+    })
+
+    test("/Post create message route/sucess",async()=>{
+        testMessageLast.senderId=userIdFour;
+        testMessageLast.contactId=contactIdLast;
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenFour}`)
+        .send(testMessageLast)
+        expect(response._body.message).toBeDefined();
+        expect(JSON.stringify(response._body.message.contactId)).toBe(JSON.stringify(testMessageLast.contactId));
+        expect(JSON.stringify(response._body.message.senderId)).toBe(JSON.stringify(testMessageLast.senderId));
+    })
+
+    //get all message
+
+    test("/Get all message with contactId message",async()=>{
+        const response=await request(server).get(`/api/v1/message/${contactIdLast}`)
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenThree}`)
+        .send()
+        console.log(response._body);
+    })
+
+
+    
+    
+})
+
+
