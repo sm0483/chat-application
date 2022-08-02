@@ -67,7 +67,6 @@ describe("Crud operation on message model",()=>{
 
     test("get  message data",async()=>{
         const data={
-            senderId:testMessage.senderId,
             contactId:testMessage.contactId
         }
         const response=await getAllMessageDb(data);
@@ -77,13 +76,6 @@ describe("Crud operation on message model",()=>{
 
     })
 
-    test("get message with only messageId",async()=>{
-        const data={
-            contactId:testMessage.contactId
-        }
-        const response=await getAllMessageDb(data);
-        expect(response.length).toBe(0);
-    })
 
     
 })
