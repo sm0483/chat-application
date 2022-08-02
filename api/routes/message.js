@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const matchTokenWithInput=require('../middleware/match-token');
+const matchTokenWithInput=require('../middleware/token-userId');
 const authJwt=require('../middleware/token-auth');
 
 
@@ -15,13 +15,13 @@ const {
 // post / create message
 // delete /:id delete message
 
-//while fetching from database there should use senderId and messageid together
-//else they get access to all message with only message id
+//while fetching from database there should use senderId and contactId together
+//else they get access to all message with only contactId
 //to avoid that set up middleware which decrypt the token use userId from there in next request
 // it will end that flow
 
-router.route('/test').get(testRouter);
-router.route('/:messageId').get(getAllMessage).delete(deleteMessage);
-router.route('/').post(createMessage);
+router.route('/test').get(authJwt,testRouter);
+router.route('/:contactId').get(authJwt,getAllMessage);
+router.route('/').post(authJwt,matchTokenWithInput,createMessage);
 
 module.exports=router;

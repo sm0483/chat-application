@@ -1,9 +1,8 @@
 const asyncWrapper = require('../error/asyncWrapper');
 const {
-  createMessageDb,
-  deleteMessageDb,
-  getMessageByUserid,
-  getMessageDbByMessageId
+    createMessageDb,
+    deleteMessageDb,
+    getAllMessageDb,
 }=require('../db/message-operation');
 
 const { StatusCodes } = require('http-status-codes');
@@ -19,9 +18,11 @@ const testRouter=asyncWrapper(async(req,res)=>{
 })
 
 const createMessage=asyncWrapper(async(req,res)=>{
-	//first get message id and message from body of request 
-	//create that message
-	//send back that message to client
+	const createdMessage=await createMessageDb(req.body);
+	res.status(StatusCodes.OK).json({
+		"message":createdMessage,
+		"status":StatusCodes.OK
+	})
 
 })
 
@@ -31,9 +32,26 @@ const deleteMessage=asyncWrapper(async(req,res)=>{
 })
 
 const getAllMessage=asyncWrapper(async(req,res)=>{
-	//fetch user id from req.userDb and fetch message id from req.params
-	// then send both in object to database and find message 
-	//send back retrived message
+	//get contactId and fetch all message
+	//fetch all message 
+	//send back message in sorted from such 
+	const {contactId}=req.params;
+
+	const response=await getAllMessageDb({contactId});
+	
+	res.status(StatusCodes.OK).json({
+		"message":response,
+		"status":StatusCodes.OK
+	})
+	// {
+	// 	message:{
+	// 	    sendMesage:[],
+	// 	    recivedMessage:[],
+	// 	},
+	// 	status:StatusCodes.OK
+
+		
+	// }
 
 })
 
