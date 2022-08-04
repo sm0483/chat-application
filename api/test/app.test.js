@@ -596,11 +596,60 @@ describe("Extensive test on message get route",()=>{
         .set('Authorization',`Bearer ${tokenThree}`)
         .send()
         console.log(response._body);
+        expect(response._body.sendMessage).toBeDefined();
+        expect(response._body.recivedMessage).toBeDefined();
+        expect(response._body.error).toBeUndefined();
+
+
     })
 
 
     
     
 })
+
+// {
+//     sendMessage: {
+//       '0': {
+//         _id: '62ebf603ac985d6a3233b715',
+//         contactId: '62ebf602ac985d6a3233b70f',
+//         senderId: '62ebf600ac985d6a3233b70a',
+//         message: 'ok da',
+//         createdAt: '2022-08-04T16:38:27.412Z',
+//         updatedAt: '2022-08-04T16:38:27.412Z',
+//         __v: 0
+//       },
+//       '1': {
+//         _id: '62ebf603ac985d6a3233b717',
+//         contactId: '62ebf602ac985d6a3233b70f',
+//         senderId: '62ebf600ac985d6a3233b70a',
+//         message: 'ok da',
+//         createdAt: '2022-08-04T16:38:27.593Z',
+//         updatedAt: '2022-08-04T16:38:27.593Z',
+//         __v: 0
+//       }
+//     },
+//     recivedMessage: {
+//       '0': {
+//         _id: '62ebf602ac985d6a3233b711',
+//         contactId: '62ebf602ac985d6a3233b70f',
+//         senderId: '62ebf601ac985d6a3233b70c',
+//         message: 'ok da',
+//         createdAt: '2022-08-04T16:38:26.200Z',
+//         updatedAt: '2022-08-04T16:38:26.200Z',
+//         __v: 0
+//       },
+//       '1': {
+//         _id: '62ebf602ac985d6a3233b713',
+//         contactId: '62ebf602ac985d6a3233b70f',
+//         senderId: '62ebf601ac985d6a3233b70c',
+//         message: 'ok da',
+//         createdAt: '2022-08-04T16:38:26.769Z',
+//         updatedAt: '2022-08-04T16:38:26.769Z',
+//         __v: 0
+//       }
+//     },
+//     status: 200
+//   }
 
 
