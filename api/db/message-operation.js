@@ -20,7 +20,7 @@ const deleteMessageDb=async(messageId)=>{
 
 
 const getAllMessageDb=async(data)=>{
-    const response=await messageModel.find(data);
+    const response=await messageModel.find(data).sort({date:-1});
     return response;
 }
 
