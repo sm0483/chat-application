@@ -2,6 +2,8 @@ const express=require('express');
 const router=express.Router();
 const matchTokenWithInput=require('../middleware/token-userId');
 const authJwt=require('../middleware/token-auth');
+const messageValidate=require('../middleware/message-valid');
+
 
 
 const {	
@@ -22,6 +24,6 @@ const {
 
 router.route('/test').get(authJwt,testRouter);
 router.route('/:contactId').get(authJwt,getAllMessage);
-router.route('/').post(authJwt,matchTokenWithInput,createMessage);
+router.route('/').post(messageValidate,authJwt,matchTokenWithInput,createMessage);
 
 module.exports=router;
