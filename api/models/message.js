@@ -10,18 +10,18 @@ const mongoose=require('mongoose');
 
 const messageSchema=new mongoose.Schema({
     contactId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.ObjectId,
         ref:"Contact",
         required:[true,'Contact id shoud present']
     },
     senderId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.ObjectId,
         ref:'User',
         required:[true,'SenderId is must']
     },
     message:{
         type:String,
-        required:[true,'SenderId is must']
+        required:[true,'text message shoul present']
     }
 
 },{timestamps:true});
