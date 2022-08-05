@@ -227,7 +227,8 @@ const userThree="62d78afd4e5a0f1a955f9f0f";
 const userFour="62k78afd4e5a0f1a955f9f0d";
 
 const getObj=(str)=>{ //string ->object
-    return mongoose.Types.ObjectId(str);
+    // return mongoose.Types.ObjectId(str);
+    return str;
 }
 
 const testContact1={
@@ -490,6 +491,9 @@ const testUserRegisterFour={
 let tokenFour=undefined;
 let userIdFour=undefined;
 
+const contactOne="62d78afd4e5a0f1a955f9f0e";
+
+
 
 
 
@@ -504,6 +508,18 @@ const testMessageLast={  //three->four // fourt->three
 const testContactLast={
     senderId:"",
     reciverId:"",
+}
+
+const testMessageFieldOne={
+    senderId:"",
+    contactId:contactOne,
+    message:"hello world"
+}
+
+const testMessageFieldTwo={
+    senderId:contactOne,
+    contactId:contactOne,
+    message:"",
 }
 
 
@@ -635,6 +651,28 @@ describe("Extensive test on message get route",()=>{
 
 
     })
+
+
+    test("/Post create message for testing middleware message joi route/failure",async()=>{
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenFour}`)
+        .send(testMessageFieldOne)
+        expect(response._body.error).toBeDefined();
+
+    })
+
+
+    test("/Post create message for testing middleware message joi route/failure",async()=>{
+        const response=await request(server).post('/api/v1/message')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${tokenFour}`)
+        .send(testMessageFieldTwo)
+        expect(response._body.error).toBeDefined();
+
+    })
+
+
 
 
     
