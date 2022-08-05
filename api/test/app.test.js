@@ -251,6 +251,17 @@ const testContactMain1={
     reciverId:getObj(userTwo),
 }
 
+testContactFieldOne={
+    senderId:"",
+    reciverId:""
+}
+
+testContactFieldTwo={
+    senderId:"",
+    reciverId:getObj(userTwo)
+}
+
+
 let thirdToken=undefined;
 describe('Test all contact route',()=>{
 
@@ -280,6 +291,29 @@ describe('Test all contact route',()=>{
         expect(JSON.stringify(response._body.id2)).toBe(JSON.stringify(testContactMain.reciverId));
 
     })
+
+
+    test('/Post create contact, senderId and reciverId not  present route/success',async()=>{
+        const response=await request(server).post('/api/v1/contact')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send(testContactFieldOne);
+        expect(response.type).toBe('application/json');
+        expect(response._body.error).toBeDefined();
+
+    })
+
+
+    test('/Post create contact, senderId or reciverId  not  present route/success',async()=>{
+        const response=await request(server).post('/api/v1/contact')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${thirdToken}`)
+        .send(testContactFieldTwo);
+        expect(response.type).toBe('application/json');
+        expect(response._body.error).toBeDefined();
+
+    })
+
 
 
     test('/Post create contact 2 route/success',async()=>{
@@ -595,7 +629,6 @@ describe("Extensive test on message get route",()=>{
         .set('Content-type','application/json')
         .set('Authorization',`Bearer ${tokenThree}`)
         .send()
-        console.log(response._body);
         expect(response._body.sendMessage).toBeDefined();
         expect(response._body.recivedMessage).toBeDefined();
         expect(response._body.error).toBeUndefined();
@@ -607,49 +640,5 @@ describe("Extensive test on message get route",()=>{
     
     
 })
-
-// {
-//     sendMessage: {
-//       '0': {
-//         _id: '62ebf603ac985d6a3233b715',
-//         contactId: '62ebf602ac985d6a3233b70f',
-//         senderId: '62ebf600ac985d6a3233b70a',
-//         message: 'ok da',
-//         createdAt: '2022-08-04T16:38:27.412Z',
-//         updatedAt: '2022-08-04T16:38:27.412Z',
-//         __v: 0
-//       },
-//       '1': {
-//         _id: '62ebf603ac985d6a3233b717',
-//         contactId: '62ebf602ac985d6a3233b70f',
-//         senderId: '62ebf600ac985d6a3233b70a',
-//         message: 'ok da',
-//         createdAt: '2022-08-04T16:38:27.593Z',
-//         updatedAt: '2022-08-04T16:38:27.593Z',
-//         __v: 0
-//       }
-//     },
-//     recivedMessage: {
-//       '0': {
-//         _id: '62ebf602ac985d6a3233b711',
-//         contactId: '62ebf602ac985d6a3233b70f',
-//         senderId: '62ebf601ac985d6a3233b70c',
-//         message: 'ok da',
-//         createdAt: '2022-08-04T16:38:26.200Z',
-//         updatedAt: '2022-08-04T16:38:26.200Z',
-//         __v: 0
-//       },
-//       '1': {
-//         _id: '62ebf602ac985d6a3233b713',
-//         contactId: '62ebf602ac985d6a3233b70f',
-//         senderId: '62ebf601ac985d6a3233b70c',
-//         message: 'ok da',
-//         createdAt: '2022-08-04T16:38:26.769Z',
-//         updatedAt: '2022-08-04T16:38:26.769Z',
-//         __v: 0
-//       }
-//     },
-//     status: 200
-//   }
 
 
